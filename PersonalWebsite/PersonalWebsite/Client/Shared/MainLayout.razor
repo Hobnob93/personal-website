@@ -10,15 +10,21 @@
         <MudText Typo="Typo.h6" Class="mr-10">Kyle Hobdey</MudText>
         <MudText Typo="Typo.caption" Color="Color.Tertiary">// Software Developer</MudText>
         <MudAppBarSpacer />
-        <MudIconButton Icon="@Icons.Custom.FileFormats.FilePdf" Color="Color.Inherit" />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />
-        <MudIconButton Icon="@Icons.Custom.Brands.LinkedIn" Color="Color.Inherit" />
-        <MudIconButton Icon="@Icons.Material.Filled.Mail" Color="Color.Inherit" />
-    </MudAppBar>
+        <MudTooltip Text="Download CV">
+            <MudIconButton Icon="@Icons.Custom.FileFormats.FilePdf" Color="Color.Inherit" />
+        </MudTooltip>
+        <MudTooltip Text="Github Profile">
+            <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />
+        </MudTooltip>
+        <MudTooltip Text="LinkedIn Profile">
+            <MudIconButton Icon="@Icons.Custom.Brands.LinkedIn" Color="Color.Inherit" />
+        </MudTooltip>
+        <MudTooltip Text="Contact Me">
+            <MudIconButton Icon="@Icons.Material.Filled.Mail" Color="Color.Inherit" />
+        </MudTooltip>
+</MudAppBar>
     <MudDrawer @bind-Open="drawerOpen" Elevation="2">
-        <MudDrawerHeader>
-            <MudText Typo="Typo.h5" Class="mt-1">Nav</MudText>
-        </MudDrawerHeader>
+        <Navigation />
     </MudDrawer>
     <MudMainContent>
         @Body
