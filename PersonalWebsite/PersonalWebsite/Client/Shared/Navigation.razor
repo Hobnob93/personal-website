@@ -1,12 +1,32 @@
 ﻿<MudNavMenu Class="mud-width-full">
-    <MudText Typo="Typo.h6" Class="px-4">Material</MudText>
-    <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary">Icons</MudText>
-    <MudDivider Class="my-2" />
-    <MudNavLink Href="/dashboard" Icon="@Icons.Filled.Dashboard">Dashboard</MudNavLink>
-    <MudNavLink Href="/servers" Icon="@Icons.Filled.Storage">Servers</MudNavLink>
-    <MudNavLink Href="/billing" Icon="@Icons.Filled.Receipt" Disabled="true">Billing</MudNavLink>
-    <MudNavGroup Title="Settings" Icon="@Icons.Filled.Settings" Expanded="true">
-        <MudNavLink Href="/users" Icon="@Icons.Filled.People" IconColor="Color.Success">Users</MudNavLink>
-        <MudNavLink Href="/security" Icon="@Icons.Filled.Security" IconColor="Color.Info">Security</MudNavLink>
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Filled.Dashboard">Home</MudNavLink>
+    <MudNavLink Href="/about" Icon="@Icons.Filled.AccountBox">About Me</MudNavLink>
+
+    <MudNavGroup Title="University" Icon="@Icons.Filled.AutoStories" Expanded="false">
+        <MudNavLink Href="/uni-results">Results</MudNavLink>
+        <MudNavLink Href="/uni-bbc-challenge">BBC & Barclays Tech Challenge</MudNavLink>
+        <MudNavLink Href="/uni-snakes-ladders">Preston Council Snakes & Ladders</MudNavLink>
+    </MudNavGroup>
+
+    <MudNavGroup Title="Search for a Star" Icon="@Icons.Filled.Star" Expanded="false">
+        <MudNavLink Href="/sfs-overview">Overview</MudNavLink>
+        <MudNavLink Href="/sfs-compeition">The Competition</MudNavLink>
+        <MudNavLink Href="/sfs-entry">My Project Entry</MudNavLink>
+    </MudNavGroup>
+
+    <MudNavGroup Title="Projects" Icon="@Icons.Filled.Build" Expanded="false">
+        <MudNavLink Href="/proj-a-star">A* Pathfinding</MudNavLink>
+        <MudNavLink Href="/proj-behaviour-trees">Behaviour Trees</MudNavLink>
+        <MudNavLink Href="/proj-planet-pool">Planet Pool</MudNavLink>
+        <MudNavLink Href="/proj-star-wrangler-arena">Star Wrangler Arena</MudNavLink>
+        <MudNavLink Href="/proj-unbound">Unbound</MudNavLink>
+        <MudNavLink Href="/proj-utility-theory">Utility Theory</MudNavLink>
+    </MudNavGroup>
+
+    <MudNavGroup Title="Interactive Visualisations" Icon="@Icons.Custom.Brands.Awesome" Expanded="false">
+        <MudNavLink Href="/iv-pathfinding">Pathfinding</MudNavLink>
+        <MudNavLink Href="/iv-sorting">Sorting</MudNavLink>
+        <MudNavLink Href="/iv-searching">Searching</MudNavLink>
+        <MudNavLink Href="/iv-cellular-automata">Cellular Automata</MudNavLink>
     </MudNavGroup>
 </MudNavMenu>

@@ -1,11 +1,16 @@
 ﻿@inherits LayoutComponentBase
 
 <MudThemeProvider Theme="darkTheme" />
-<MudDialogProvider />
-<MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Color="Color.Inherit" Fixed="false" Dense="true" Elevation="1">
+    <MudDrawer @bind-Open="drawerOpen" Elevation="4">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">Navigation</MudText>
+        </MudDrawerHeader>
+        <Navigation />
+    </MudDrawer>
+
+    <MudAppBar Color="Color.Inherit" Fixed="false" Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="() => DrawerToggle()" />
         <MudText Typo="Typo.h6" Class="mr-10">Kyle Hobdey</MudText>
         <MudText Typo="Typo.caption" Color="Color.Tertiary">// Software Developer</MudText>
@@ -22,10 +27,8 @@
         <MudTooltip Text="Contact Me">
             <MudIconButton Icon="@Icons.Material.Filled.Mail" Color="Color.Inherit" />
         </MudTooltip>
-</MudAppBar>
-    <MudDrawer @bind-Open="drawerOpen" Elevation="2">
-        <Navigation />
-    </MudDrawer>
+    </MudAppBar>
+
     <MudMainContent>
         @Body
     </MudMainContent>
