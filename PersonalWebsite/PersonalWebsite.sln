@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalWebsite.Server", "PersonalWebsite\Server\PersonalWebsite.Server.csproj", "{73454522-5CD0-4A47-9078-EA6F76874D54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalWebsite.Server", "PersonalWebsite\Server\PersonalWebsite.Server.csproj", "{73454522-5CD0-4A47-9078-EA6F76874D54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalWebsite.Client", "PersonalWebsite\Client\PersonalWebsite.Client.csproj", "{2B1289A8-EC35-4389-8834-EE4C5CBDA73D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalWebsite.Client", "PersonalWebsite\Client\PersonalWebsite.Client.csproj", "{2B1289A8-EC35-4389-8834-EE4C5CBDA73D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalWebsite.Shared", "PersonalWebsite\Shared\PersonalWebsite.Shared.csproj", "{EBC8AC4F-85A7-4DEA-AAB7-9A3D664353D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalWebsite.Shared", "PersonalWebsite\Shared\PersonalWebsite.Shared.csproj", "{EBC8AC4F-85A7-4DEA-AAB7-9A3D664353D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
