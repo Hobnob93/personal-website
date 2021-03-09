@@ -1,32 +1,50 @@
 ﻿@page "/"
 
 <MudContainer>
-    <MudCard>
-        <MudCardHeader>
-            <CardHeaderContent>
-                <MudText Typo="Typo.h4" Color="Color.Primary">Welcome!</MudText>
-            </CardHeaderContent>
-        </MudCardHeader>
-        <MudCardContent>
-            <MudText>My name is Kyle Hobdey; welcome to my website!</MudText>
-            <br />
-            <MudText>
-                I am currently a software developer at File Dynamics Ltd, in Bristol, which is a position I have been in for about a year. The work is focused
-                on building web and WPF applications, centred around the legal sector. I have a Master of Computing degree with First Class Honours. It was awarded at 
-                University of Central Lancashire in 2017, for the course Computer Games Development. I hope to one day get my doctorate, because who doesn't want to be
-                a doctor of computers?
-            </MudText>
-            <br />
-            <MudText>
-                The purpose of this website is to give insight into myself, my interests, and some projects I have worked on. The site also seemed like a good
-                excuse to learn Blazor with .NET 5. Feel free to have a nosey around! If you have any questions, or suggestions on how to 
-                improve the site, please don't hesitate to contact me.
-            </MudText>
-            <br />
-            <MudText>
-                I have also added a section to my website recently, which aims to show educational visualisations to common algorithms. I hope you find it 
-                as entertaining to use as I did making it! :)
-            </MudText>
-        </MudCardContent>
-    </MudCard>
+    <MudGrid>
+        <MudItem sm="12" md="8">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h4" Color="Color.Primary">Welcome!</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText>My name is Kyle Hobdey; welcome to my website!</MudText>
+                    <br />
+                    <MudText>
+                        I am currently a software developer at File Dynamics Ltd, in Bristol, which is a position I have been in for about a year. The work is focused
+                        on building web and WPF applications, centred around the legal sector. I have a Master of Computing degree with First Class Honours. It was awarded at
+                        University of Central Lancashire in 2017, for the course Computer Games Development. I hope to one day get my doctorate, because who doesn't want to be
+                        a doctor of computers?
+                    </MudText>
+                    <br />
+                    <MudText>
+                        The purpose of this website is to give insight into myself, my interests, and some projects I have worked on. The site also seemed like a good
+                        excuse to learn Blazor with .NET 5. Feel free to have a nosey around! If you have any questions, or suggestions on how to
+                        improve the site, please don't hesitate to contact me.
+                    </MudText>
+                    <br />
+                    <MudText>
+                        I have also added a section to my website recently, which aims to show educational visualisations to common algorithms. I hope you find it
+                        as entertaining to use as I did making it! :)
+                    </MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem sm="12" md="4">
+            <MudCard>
+                <MudCardMedia Image="https://drive.google.com/uc?export=view&id=1DxS1TVmDf1bgdDKOfb9Agbmq8HLG89VC" Height="400" />
+                <MudCardContent>
+                    <MudText>
+                        Taken after winning Search for a Star in 2017.
+                    </MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Secondary" Link="/sfas/overview">Learn More</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
 </MudContainer>
