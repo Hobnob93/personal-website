@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
+using PersonalWebsite.Shared.Interfaces;
+using PersonalWebsite.Shared.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -16,6 +18,8 @@ namespace PersonalWebsite.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddMudServices();
+
+            builder.Services.AddScoped<IBoardFactory, BoardFactory>();
 
             await builder.Build().RunAsync();
         }
