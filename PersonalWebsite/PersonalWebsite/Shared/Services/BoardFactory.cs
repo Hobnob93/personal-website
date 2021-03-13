@@ -39,7 +39,7 @@ namespace PersonalWebsite.Shared.Services
             {
                 for (int w = 0; w < width; w++)
                 {
-                    var i = h * w;
+                    var i = width * h + w;
                     var cell = cells[i];
 
                     cell.H = h;
