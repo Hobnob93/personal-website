@@ -1,0 +1,40 @@
+﻿@page "/visual-algorithms/cellular-automata"
+
+<MudContainer>
+    <MudPaper>
+        <MudToolBar>
+            <MudTooltip Text="Help">
+                <MudIconButton Icon="@Icons.Material.Outlined.Help" Color="Color.Inherit" />
+            </MudTooltip>
+            <MudToolBarSpacer />
+            <MudTooltip Text="Play Speed">
+                <MudIconButton Icon="@Icons.Material.Filled.Timer" Color="Color.Inherit" />
+            </MudTooltip>
+            <MudTooltip Text="Start">
+                <MudIconButton Icon="@Icons.Material.Filled.PlayArrow" Color="Color.Inherit" />
+            </MudTooltip>
+            <MudTooltip Text="Skip Frame">
+                <MudIconButton Icon="@Icons.Material.Filled.SkipNext" Color="Color.Inherit" />
+            </MudTooltip>
+            <MudTooltip Text="Stop">
+                <MudIconButton Icon="@Icons.Material.Filled.Stop" Color="Color.Inherit" />
+            </MudTooltip>
+            <MudToolBarSpacer />
+            <MudTooltip Text="Set Grid Size">
+                <MudIconButton Icon="@Icons.Material.Filled.GridView" Color="Color.Inherit" />
+            </MudTooltip>
+            <MudTooltip Text="Edge Wrap">
+                <MudIconButton Icon="@Icons.Material.Filled.WrapText" Color="Color.Inherit" />
+            </MudTooltip>
+            <MudTooltip Text="Pick Preset">
+                <MudIconButton Icon="@Icons.Material.Filled.Colorize" Color="Color.Inherit" />
+            </MudTooltip>
+            <MudToolBarSpacer />
+            <MudTooltip Text="Reset Grid">
+                <MudIconButton Icon="@Icons.Material.Outlined.GridOff" Color="Color.Inherit" />
+            </MudTooltip>
+        </MudToolBar>
+
+        <BoardWidget />
+    </MudPaper>
+</MudContainer>
