@@ -46,16 +46,16 @@ namespace PersonalWebsite.Shared.Services
                     cell.W = w;
                     cell.Neighbours = new BoardCell[4]
                     {
-                        FindNeighbour(NeighbourDirection.North, cells, i, height, width),
-                        FindNeighbour(NeighbourDirection.East, cells, i, height, width),
-                        FindNeighbour(NeighbourDirection.South, cells, i, height, width),
-                        FindNeighbour(NeighbourDirection.West, cells, i, height, width),
+                        FindNeighbour(NeighbourDirection.North, cells, i, width),
+                        FindNeighbour(NeighbourDirection.East, cells, i, width),
+                        FindNeighbour(NeighbourDirection.South, cells, i, width),
+                        FindNeighbour(NeighbourDirection.West, cells, i, width),
                     };
                 }
             }
         }
 
-        private BoardCell FindNeighbour(NeighbourDirection dir, BoardCell[] cells, int curIndex, int height, int width)
+        private BoardCell FindNeighbour(NeighbourDirection dir, BoardCell[] cells, int curIndex, int width)
         {
             var neighbourIndex = dir switch
             {

@@ -2,6 +2,7 @@
 using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
 using PersonalWebsite.Shared.Models;
+using System;
 
 namespace PersonalWebsite.Client.Shared
 {
@@ -23,6 +24,16 @@ namespace PersonalWebsite.Client.Shared
         protected override void OnInitialized()
         {
             Board = BoardFactory.BuildBoard(Type, Height, Width);
+        }
+
+        public void CellClicked(int hPos, int wPos)
+        {
+            var cell = Board.Cells[Width * hPos + wPos];
+            cell.Type = BoardCellType.Full;
+
+            foreach (var c in cell.Neighbours)
+                if (c != null)
+                    c.Type = BoardCellType.Full;
         }
     }
 }
