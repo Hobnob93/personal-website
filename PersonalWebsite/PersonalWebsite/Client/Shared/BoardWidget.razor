@@ -4,7 +4,7 @@
     <tr class="board-row">
         @for (int w = 0; w < Width; w++)
         {
-            var cell = Board.Cells[h * w];
+            var cell = Board.Cells[Width * h + w];
             var type = (int)cell.Type;
             <td id="cell-@h-@w" class="board-cell type-@type" onclick="document.getElementById('cell-@h-@w').style.background='red'"></td>
         }
