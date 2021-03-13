@@ -1,0 +1,11 @@
+﻿<table class="board">
+    @for (int i = 0; i < 50; i++)
+    {
+        <tr class="board-row">
+            @for (int j = 0; j < 100; j++)
+            {
+                <td id="@i-@j" class="board-cell" onclick="document.getElementById('@i-@j').style.background='#9d9d9d'"></td>
+            }
+        </tr>
+    }
+</table>
