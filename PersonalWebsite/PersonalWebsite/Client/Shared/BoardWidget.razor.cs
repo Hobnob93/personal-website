@@ -26,6 +26,11 @@ namespace PersonalWebsite.Client.Shared
             Board = BoardFactory.BuildBoard(Type, Height, Width);
         }
 
+        public void ClearBoard()
+        {
+            Board = BoardFactory.RecycleBoard(Type, Board);
+        }
+
         public void CellClicked(int hPos, int wPos)
         {
             var cell = Board.Cells[Width * hPos + wPos];

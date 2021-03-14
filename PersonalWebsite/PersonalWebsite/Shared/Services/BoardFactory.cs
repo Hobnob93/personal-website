@@ -22,6 +22,16 @@ namespace PersonalWebsite.Shared.Services
             return board;
         }
 
+        public Board RecycleBoard(BoardType type, Board board)
+        {
+            if (board == null) throw new ArgumentNullException(nameof(board));
+
+            InitialiseCells(board.Cells, board.Height, board.Width);
+            board.Cells = DecorateCells(type, board.Cells);
+
+            return board;
+        }
+
         private BoardCell[] CreateCells(Board board, int height, int width)
         {
             var cells = Enumerable.Range(1, height * width)
@@ -51,6 +61,8 @@ namespace PersonalWebsite.Shared.Services
                         FindNeighbour(NeighbourDirection.South, cells, i, width),
                         FindNeighbour(NeighbourDirection.West, cells, i, width),
                     };
+
+                    cell.Type = BoardCellType.Empty;
                 }
             }
         }
