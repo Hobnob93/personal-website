@@ -92,7 +92,7 @@ namespace PersonalWebsite.Shared.Services
         private BoardCell[] DecorateCells(BoardType type, BoardCell[] cells)
         {
             var rand = new Random(DateTime.Now.Millisecond);
-            var randCount = rand.Next(10, 21);
+            var randCount = rand.Next(30, 50);
             for (int i = 0; i < randCount; i++)
             {
                 var randomCell = cells[rand.Next(0, cells.Length)];

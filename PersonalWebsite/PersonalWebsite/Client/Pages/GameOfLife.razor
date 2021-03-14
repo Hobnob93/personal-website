@@ -45,5 +45,20 @@
         </MudToolBar>
 
         <BoardWidget @ref="Board" Type="BoardType" Size="GridSize" />
+
+        <MudGrid>
+            <MudItem md="3">
+                <MudText Align="Align.Center">Generation<br />@Generation</MudText>
+            </MudItem>
+            <MudItem md="3">
+                <MudText Align="Align.Center">Currently Alive<br />@Alive</MudText>
+            </MudItem>
+            <MudItem md="3">
+                <MudText Align="Align.Center">Total Lived<br />@Lived</MudText>
+            </MudItem>
+            <MudItem md="3">
+                <MudText Align="Align.Center">Total Dead<br />@Dead</MudText>
+            </MudItem>
+        </MudGrid>
     </MudPaper>
 </MudContainer>
