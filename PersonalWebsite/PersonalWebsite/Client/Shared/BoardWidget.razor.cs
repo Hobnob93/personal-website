@@ -2,7 +2,6 @@
 using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
 using PersonalWebsite.Shared.Models;
-using System;
 
 namespace PersonalWebsite.Client.Shared
 {
@@ -53,9 +52,14 @@ namespace PersonalWebsite.Client.Shared
             InitialiseBoard();
         }
 
-        public void ClearBoard()
+        public void ClearBoard(bool wrapEdge)
         {
-            Board = BoardFactory.RecycleBoard(Type, Board);
+            Board = BoardFactory.RecycleBoard(Type, Board, clear: true, wrapEdge);
+        }
+
+        public void OnWrapEdgeChanged(bool wrapEdge)
+        {
+            Board = BoardFactory.RecycleBoard(Type, Board, clear: false, wrapEdge);
         }
 
         public void CellClicked(int hPos, int wPos)

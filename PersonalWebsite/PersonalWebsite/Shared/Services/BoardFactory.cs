@@ -22,12 +22,14 @@ namespace PersonalWebsite.Shared.Services
             return board;
         }
 
-        public Board RecycleBoard(BoardType type, Board board)
+        public Board RecycleBoard(BoardType type, Board board, bool clear, bool wrapEdge)
         {
             if (board == null) throw new ArgumentNullException(nameof(board));
 
-            InitialiseCells(board.Cells, board.Height, board.Width);
-            board.Cells = DecorateCells(type, board.Cells);
+            InitialiseCells(board.Cells, board.Height, board.Width, clear, wrapEdge);
+
+            if (clear)
+                board.Cells = DecorateCells(type, board.Cells);
 
             return board;
         }
@@ -43,7 +45,7 @@ namespace PersonalWebsite.Shared.Services
             return cells;
         }
 
-        private void InitialiseCells(BoardCell[] cells, int height, int width)
+        private void InitialiseCells(BoardCell[] cells, int height, int width, bool clear = true, bool wrapEdge = false)
         {
             for (int h = 0; h < height; h++)
             {
@@ -56,18 +58,19 @@ namespace PersonalWebsite.Shared.Services
                     cell.W = w;
                     cell.Neighbours = new BoardCell[4]
                     {
-                        FindNeighbour(NeighbourDirection.North, cells, i, width),
-                        FindNeighbour(NeighbourDirection.East, cells, i, width),
-                        FindNeighbour(NeighbourDirection.South, cells, i, width),
-                        FindNeighbour(NeighbourDirection.West, cells, i, width),
+                        FindNeighbour(NeighbourDirection.North, cells, i, width, wrapEdge),
+                        FindNeighbour(NeighbourDirection.East, cells, i, width, wrapEdge),
+                        FindNeighbour(NeighbourDirection.South, cells, i, width, wrapEdge),
+                        FindNeighbour(NeighbourDirection.West, cells, i, width, wrapEdge),
                     };
 
-                    cell.Type = BoardCellType.Empty;
+                    if (clear)
+                        cell.Type = BoardCellType.Empty;
                 }
             }
         }
 
-        private BoardCell FindNeighbour(NeighbourDirection dir, BoardCell[] cells, int curIndex, int width)
+        private BoardCell FindNeighbour(NeighbourDirection dir, BoardCell[] cells, int curIndex, int width, bool wrapEdge)
         {
             var neighbourIndex = dir switch
             {
@@ -77,14 +80,37 @@ namespace PersonalWebsite.Shared.Services
                 NeighbourDirection.West => curIndex - 1
             };
 
-            if (neighbourIndex < 0 || neighbourIndex >= cells.Length)
-                return null;        // neighbour index is out of range
+            var isFarLeft = curIndex % width == 0;
+            var isFarRight = curIndex % width == (width - 1);
 
-            if (dir == NeighbourDirection.West && curIndex % width == 0)
-                return null;        // cell is on left side, but neighbour index is on previous row on far right side
+            if (wrapEdge)
+            {
+                if (dir == NeighbourDirection.North && neighbourIndex < 0)
+                    neighbourIndex += cells.Length;
 
-            if (dir == NeighbourDirection.East && curIndex % width == (width - 1))
-                return null;        // cell is on right side, but neighbour index is on next row on far left side
+                if (dir == NeighbourDirection.South && neighbourIndex >= cells.Length)
+                    neighbourIndex -= cells.Length;
+
+                if (dir == NeighbourDirection.West && isFarLeft)
+                    neighbourIndex += width;           // cell is on left side, neighbour needs to be same row but on far right
+
+                if (wrapEdge && dir == NeighbourDirection.East && isFarRight)
+                    neighbourIndex -= width;           // cell is on right side, neighbour needs to be same row but on far left
+
+                if (neighbourIndex < 0 || neighbourIndex >= cells.Length)
+                    return null;                        // neighbour index is out of range
+            }
+            else
+            {
+                if (neighbourIndex < 0 || neighbourIndex >= cells.Length)
+                    return null;                        // neighbour index is out of range
+
+                if (dir == NeighbourDirection.West && isFarLeft)
+                    return null;                        // cell is on left side, but neighbour index is on previous row on far right side
+
+                if (dir == NeighbourDirection.East && isFarRight)
+                    return null;                        // cell is on right side, but neighbour index is on next row on far left side
+            }
 
             return cells[neighbourIndex];
         }

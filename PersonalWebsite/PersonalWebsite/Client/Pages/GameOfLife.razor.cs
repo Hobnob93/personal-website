@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
-using PersonalWebsite.Client.Shared;
+﻿using PersonalWebsite.Client.Shared;
 using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Extensions;
-using System;
-using System.Linq;
 
 namespace PersonalWebsite.Client.Pages
 {
@@ -30,12 +27,13 @@ namespace PersonalWebsite.Client.Pages
 
         public void ClearBoard()
         {
-            Board.ClearBoard();
+            Board.ClearBoard(DoEdgeWrap);
         }
 
         public void ToggleWrapEdge()
         {
             DoEdgeWrap = !DoEdgeWrap;
+            Board.OnWrapEdgeChanged(DoEdgeWrap);
         }
 
         public void OnSpeedChanged(int newValue)
