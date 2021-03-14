@@ -4,37 +4,37 @@
     <MudPaper>
         <MudToolBar>
             <MudTooltip Text="Help">
-                <MudIconButton Icon="@Icons.Material.Outlined.Help" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Help" />
             </MudTooltip>
             <MudToolBarSpacer />
             <MudTooltip Text="Play Speed">
-                <MudIconButton Icon="@Icons.Material.Filled.Timer" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Filled.Timer" />
             </MudTooltip>
             <MudTooltip Text="Start">
-                <MudIconButton Icon="@Icons.Material.Filled.PlayArrow" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Filled.PlayArrow" />
             </MudTooltip>
             <MudTooltip Text="Skip Frame">
-                <MudIconButton Icon="@Icons.Material.Filled.SkipNext" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Filled.SkipNext" />
             </MudTooltip>
             <MudTooltip Text="Stop">
-                <MudIconButton Icon="@Icons.Material.Filled.Stop" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Filled.Stop" />
             </MudTooltip>
             <MudToolBarSpacer />
             <MudTooltip Text="Set Grid Size">
-                <MudIconButton Icon="@Icons.Material.Filled.GridView" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Filled.GridView" />
             </MudTooltip>
             <MudTooltip Text="Edge Wrap">
-                <MudIconButton Icon="@Icons.Material.Filled.WrapText" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Filled.WrapText" />
             </MudTooltip>
             <MudTooltip Text="Pick Preset">
-                <MudIconButton Icon="@Icons.Material.Filled.Colorize" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Filled.Colorize" />
             </MudTooltip>
             <MudToolBarSpacer />
             <MudTooltip Text="Reset Grid">
-                <MudIconButton Icon="@Icons.Material.Outlined.GridOff" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Outlined.GridOff" @onclick="ClearBoard" />
             </MudTooltip>
         </MudToolBar>
 
-        <BoardWidget Type="PersonalWebsite.Shared.Enums.BoardType.Automata" Height="40" Width="100" />
+        <BoardWidget @ref="Board" Type="BoardType" Height="40" Width="100" />
     </MudPaper>
 </MudContainer>

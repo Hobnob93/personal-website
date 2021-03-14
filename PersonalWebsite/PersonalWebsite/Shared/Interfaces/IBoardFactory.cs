@@ -6,5 +6,6 @@ namespace PersonalWebsite.Shared.Interfaces
     public interface IBoardFactory
     {
         Board BuildBoard(BoardType type, int height, int width);
+        Board RecycleBoard(BoardType type, Board board);
     }
 }
