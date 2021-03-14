@@ -80,3 +80,8 @@
     border-width: 1px;
     border-bottom: 0px;
 }
+
+.mud-list.mud-list-padding {
+    padding-left: 12px;
+    padding-right: 12px;
+}
