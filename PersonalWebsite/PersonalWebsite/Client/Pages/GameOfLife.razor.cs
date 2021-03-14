@@ -16,12 +16,16 @@ namespace PersonalWebsite.Client.Pages
         public PlaySpeed PlaySpeed => (PlaySpeed)PlaySpeedRaw;
         public string PlaySpeedTooltip => $"Play Speed: {PlaySpeed.GetDescription()}";
 
-        public int GridSizeRaw { get; set; } = 3;
+        public int GridSizeRaw { get; set; } = 2;
         public GridSize GridSize => (GridSize)GridSizeRaw;
         public string GridSizeTooltip => $"Grid Size: {GridSize.GetDescription()}";
 
         public bool IsPlaying { get; set; }
         public bool DoEdgeWrap { get; set; }
+        public int Generation { get; set; }
+        public int Alive { get; set; }
+        public int Dead { get; set; }
+        public int Lived { get; set; }
 
 
         public void ClearBoard()
