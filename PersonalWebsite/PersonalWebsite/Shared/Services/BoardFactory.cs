@@ -65,7 +65,7 @@ namespace PersonalWebsite.Shared.Services
                     };
 
                     if (clear)
-                        cell.Type = BoardCellType.Empty;
+                        cell.Type = BoardCellType.Normal;
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace PersonalWebsite.Shared.Services
             for (int i = 0; i < randCount; i++)
             {
                 var randomCell = cells[rand.Next(0, cells.Length)];
-                randomCell.Type = BoardCellType.Full;
+                randomCell.Type = BoardCellType.Goal;
             }
 
             return cells;

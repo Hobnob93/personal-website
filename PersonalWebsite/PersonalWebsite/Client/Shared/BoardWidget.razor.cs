@@ -2,6 +2,7 @@
 using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
 using PersonalWebsite.Shared.Models;
+using System;
 
 namespace PersonalWebsite.Client.Shared
 {
@@ -65,11 +66,16 @@ namespace PersonalWebsite.Client.Shared
         public void CellClicked(int hPos, int wPos)
         {
             var cell = Board.Cells[Width * hPos + wPos];
-            cell.Type = BoardCellType.Full;
+            cell.Type = BoardCellType.Goal;
 
             foreach (var c in cell.Neighbours)
                 if (c != null)
-                    c.Type = BoardCellType.Full;
+                    c.Type = BoardCellType.Goal;
+        }
+
+        public void Tick()
+        {
+            Console.WriteLine("TICK");
         }
     }
 }

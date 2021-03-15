@@ -16,7 +16,7 @@
                 <MudIconButton Icon="@Icons.Material.Filled.PlayArrow" Color="IsPlaying ? Color.Secondary : Color.Inherit" @onclick="Play" />
             </MudTooltip>
             <MudTooltip Text="Skip Frame" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Filled.SkipNext" @onclick="NextFrame" />
+                <MudIconButton Icon="@Icons.Material.Filled.SkipNext" @onclick="() => NextFrame(userClicked: true)" />
             </MudTooltip>
             <MudTooltip Text="Stop" Placement="Placement.Top">
                 <MudIconButton Icon="@Icons.Material.Filled.Stop" Color="IsPlaying ? Color.Inherit : Color.Tertiary" @onclick="Stop" />
@@ -45,6 +45,7 @@
         </MudToolBar>
 
         <BoardWidget @ref="Board" Type="BoardType" Size="GridSize" />
+        <Timer Speed="PlaySpeed" Active="IsPlaying" OnTimerTick="NextFrame" />
 
         <MudGrid>
             <MudItem md="3">
