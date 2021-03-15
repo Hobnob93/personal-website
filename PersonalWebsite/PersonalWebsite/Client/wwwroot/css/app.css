@@ -60,11 +60,15 @@
 }
 
 .board-cell.type-0 {
-    background: #9d9d9d;
+    background: #7d7d7d;
 }
 
 .board-cell.type-1 {
     background: var(--mud-palette-surface);
+}
+
+.board-cell.type-5 {
+    background: var(--mud-palette-secondary);
 }
 
 .board-cell:before {

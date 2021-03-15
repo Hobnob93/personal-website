@@ -27,6 +27,10 @@ namespace PersonalWebsite.Client.Pages
 
         public void ClearBoard()
         {
+            Generation = 0;
+            Alive = 0;
+            Dead = 0;
+            Lived = 0;
             Board.ClearBoard(DoEdgeWrap);
         }
 
@@ -56,9 +60,17 @@ namespace PersonalWebsite.Client.Pages
             IsPlaying = false;
         }
 
-        public void NextFrame()
+        public void NextFrame(bool userClicked = false)
         {
-            IsPlaying = false;
+            if (userClicked)
+            {
+                IsPlaying = false;
+                Board.Tick();
+            }
+            else if (IsPlaying)
+            {
+                Board.Tick();
+            }
         }
     }
 }
