@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
-using PersonalWebsite.Shared.Models;
-using System;
 
 namespace PersonalWebsite.Client.Shared
 {
@@ -11,16 +9,14 @@ namespace PersonalWebsite.Client.Shared
         private GridSize size;
 
         [Inject]
-        public IBoardFactory BoardFactory { get; set; }
+        public IBoardService BoardService { get; set; }
 
         [Parameter]
         public BoardType Type { get; set; }
         [Parameter]
         public GridSize Size { get => size; set => OnGridSizeChanged(value); }
-        
-        public int Height { get; set; }
-        public int Width { get; set; }
-        public Board Board { get; set; }
+        [Parameter]
+        public bool EdgeWrap { get; set; }
 
 
         protected override void OnInitialized()
@@ -30,7 +26,7 @@ namespace PersonalWebsite.Client.Shared
 
         protected void InitialiseBoard()
         {
-            (Height, Width) = Size switch
+            var (height, width) = Size switch
             {
                 GridSize.ExtraExtraSmall => (11, 40),
                 GridSize.ExtraSmall => (15, 50),
@@ -41,7 +37,7 @@ namespace PersonalWebsite.Client.Shared
                 GridSize.ExtraExtraLarge => (40, 100)
             };
 
-            Board = BoardFactory.BuildBoard(Type, Height, Width);
+            BoardService.Initialise(height, width, EdgeWrap);
         }
 
         protected void OnGridSizeChanged(GridSize size)
@@ -55,27 +51,22 @@ namespace PersonalWebsite.Client.Shared
 
         public void ClearBoard(bool wrapEdge)
         {
-            Board = BoardFactory.RecycleBoard(Type, Board, clear: true, wrapEdge);
+            BoardService.Reset(true, wrapEdge);
         }
 
         public void OnWrapEdgeChanged(bool wrapEdge)
         {
-            Board = BoardFactory.RecycleBoard(Type, Board, clear: false, wrapEdge);
+            BoardService.Reset(false, wrapEdge);
         }
 
-        public void CellClicked(int hPos, int wPos)
+        public void CellInteracted(int hPos, int wPos)
         {
-            var cell = Board.Cells[Width * hPos + wPos];
-            cell.Type = BoardCellType.Goal;
-
-            foreach (var c in cell.Neighbours)
-                if (c != null)
-                    c.Type = BoardCellType.Goal;
+            BoardService.OnCellInteracted(hPos, wPos);
         }
 
         public void Tick()
         {
-            Console.WriteLine("TICK");
+            BoardService.Tick();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace PersonalWebsite.Shared.Services
 {
     public class BoardFactory : IBoardFactory
     {
-        public Board BuildBoard(BoardType type, int height, int width)
+        public Board BuildBoard(BoardType type, int height, int width, bool wrapEdge)
         {
             var board = new Board
             {
@@ -17,7 +17,7 @@ namespace PersonalWebsite.Shared.Services
                 Width = width
             };
 
-            board.Cells = DecorateCells(type, CreateCells(board, height, width));
+            board.Cells = CreateCells(board, height, width, wrapEdge);
 
             return board;
         }
@@ -28,24 +28,21 @@ namespace PersonalWebsite.Shared.Services
 
             InitialiseCells(board.Cells, board.Height, board.Width, clear, wrapEdge);
 
-            if (clear)
-                board.Cells = DecorateCells(type, board.Cells);
-
             return board;
         }
 
-        private BoardCell[] CreateCells(Board board, int height, int width)
+        private BoardCell[] CreateCells(Board board, int height, int width, bool wrapEdge)
         {
             var cells = Enumerable.Range(1, height * width)
                 .Select(i => new BoardCell { Board = board })
                 .ToArray();
 
-            InitialiseCells(cells, height, width);
+            InitialiseCells(cells, height, width, false, wrapEdge);
 
             return cells;
         }
 
-        private void InitialiseCells(BoardCell[] cells, int height, int width, bool clear = true, bool wrapEdge = false)
+        private void InitialiseCells(BoardCell[] cells, int height, int width, bool clear, bool wrapEdge)
         {
             for (int h = 0; h < height; h++)
             {
@@ -113,19 +110,6 @@ namespace PersonalWebsite.Shared.Services
             }
 
             return cells[neighbourIndex];
-        }
-
-        private BoardCell[] DecorateCells(BoardType type, BoardCell[] cells)
-        {
-            var rand = new Random(DateTime.Now.Millisecond);
-            var randCount = rand.Next(30, 50);
-            for (int i = 0; i < randCount; i++)
-            {
-                var randomCell = cells[rand.Next(0, cells.Length)];
-                randomCell.Type = BoardCellType.Goal;
-            }
-
-            return cells;
         }
     }
 }

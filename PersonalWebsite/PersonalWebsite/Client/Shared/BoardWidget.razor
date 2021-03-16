@@ -1,12 +1,18 @@
-﻿<table class="board">
-@for (int h = 0; h < Height; h++)
+﻿@{
+    var board = BoardService.Board;
+    var height = board.Height;
+    var width = board.Width;
+}
+
+<table class="board">
+@for (int h = 0; h < height; h++)
 {
     <tr class="board-row">
-        @for (int w = 0; w < Width; w++)
+        @for (int w = 0; w < width; w++)
         {
-            var cell = Board.Cells[Width * h + w];
+            var cell = board.Cells[width * h + w];
             var type = (int)cell.Type;
-            <td id="cell-@h-@w" class="board-cell type-@type" @onclick="() => CellClicked(cell.H, cell.W)"></td>
+            <td id="cell-@h-@w" class="board-cell type-@type" @onclick="() => CellInteracted(cell.H, cell.W)"></td>
         }
     </tr>
 }
