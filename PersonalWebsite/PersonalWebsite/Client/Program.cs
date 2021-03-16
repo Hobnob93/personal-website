@@ -20,6 +20,7 @@ namespace PersonalWebsite.Client
             builder.Services.AddMudServices();
 
             builder.Services.AddScoped<IBoardFactory, BoardFactory>();
+            builder.Services.AddScoped<IBoardService, GameOfLifeBoard>();
 
             await builder.Build().RunAsync();
         }
