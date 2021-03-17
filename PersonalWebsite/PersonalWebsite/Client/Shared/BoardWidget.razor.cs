@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
+using System.Threading.Tasks;
 
 namespace PersonalWebsite.Client.Shared
 {
@@ -17,6 +18,8 @@ namespace PersonalWebsite.Client.Shared
         public GridSize Size { get => size; set => OnGridSizeChanged(value); }
         [Parameter]
         public bool EdgeWrap { get; set; }
+        [Parameter]
+        public EventCallback OnCellInteracted { get; set; }
 
 
         protected override void OnInitialized()
@@ -34,7 +37,8 @@ namespace PersonalWebsite.Client.Shared
                 GridSize.Medium => (25, 70),
                 GridSize.Large => (30, 80),
                 GridSize.ExtraLarge => (35, 90),
-                GridSize.ExtraExtraLarge => (40, 100)
+                GridSize.ExtraExtraLarge => (40, 100),
+                _ => (25, 70)
             };
 
             BoardService.Initialise(height, width, EdgeWrap);
@@ -59,9 +63,10 @@ namespace PersonalWebsite.Client.Shared
             BoardService.Reset(false, wrapEdge);
         }
 
-        public void CellInteracted(int hPos, int wPos)
+        public async Task CellInteracted(int hPos, int wPos)
         {
             BoardService.OnCellInteracted(hPos, wPos);
+            await OnCellInteracted.InvokeAsync();
         }
 
         public void Tick()

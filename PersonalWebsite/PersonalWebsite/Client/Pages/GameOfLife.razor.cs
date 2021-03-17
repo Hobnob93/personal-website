@@ -19,18 +19,15 @@ namespace PersonalWebsite.Client.Pages
 
         public bool IsPlaying { get; set; }
         public bool DoEdgeWrap { get; set; }
-        public int Generation { get; set; }
-        public int Alive { get; set; }
-        public int Dead { get; set; }
-        public int Lived { get; set; }
+
+        public int Generation => Board.BoardService.GetStatistic(BoardStatistic.Generation);
+        public int Alive => Board.BoardService.GetStatistic(BoardStatistic.Living);
+        public int Dead => Board.BoardService.GetStatistic(BoardStatistic.TotalDied);
+        public int Lived => Board.BoardService.GetStatistic(BoardStatistic.TotalLived);
 
 
         public void ClearBoard()
         {
-            Generation = 0;
-            Alive = 0;
-            Dead = 0;
-            Lived = 0;
             Board.ClearBoard(DoEdgeWrap);
         }
 
@@ -71,6 +68,11 @@ namespace PersonalWebsite.Client.Pages
             {
                 Board.Tick();
             }
+        }
+
+        public void OnUserClickedCell()
+        {
+            ShouldRender();
         }
     }
 }
