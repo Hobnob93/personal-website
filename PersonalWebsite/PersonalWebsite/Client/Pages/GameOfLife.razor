@@ -44,7 +44,7 @@
             </MudTooltip>
         </MudToolBar>
 
-        <BoardWidget @ref="Board" Type="BoardType" Size="GridSize" EdgeWrap="DoEdgeWrap" />
+        <BoardWidget @ref="Board" Type="BoardType" Size="GridSize" EdgeWrap="DoEdgeWrap" OnCellInteracted="OnUserClickedCell" />
         <Timer Speed="PlaySpeed" Active="IsPlaying" OnTimerTick="NextFrame" />
 
         <MudGrid>

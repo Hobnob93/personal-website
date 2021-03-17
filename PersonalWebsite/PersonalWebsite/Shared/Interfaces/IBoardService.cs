@@ -12,5 +12,6 @@ namespace PersonalWebsite.Shared.Interfaces
         void Tick();
         void Reset(bool clear, bool wrapEdge);
         void OnCellInteracted(int hPos, int wPos);
+        int GetStatistic(BoardStatistic stat);
     }
 }

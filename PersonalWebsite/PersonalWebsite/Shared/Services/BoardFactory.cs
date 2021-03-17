@@ -74,7 +74,8 @@ namespace PersonalWebsite.Shared.Services
                 NeighbourDirection.North => curIndex - width,
                 NeighbourDirection.East => curIndex + 1,
                 NeighbourDirection.South => curIndex + width,
-                NeighbourDirection.West => curIndex - 1
+                NeighbourDirection.West => curIndex - 1,
+                _ => -1
             };
 
             var isFarLeft = curIndex % width == 0;
