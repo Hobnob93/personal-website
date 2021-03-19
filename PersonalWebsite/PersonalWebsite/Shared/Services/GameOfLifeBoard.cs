@@ -1,7 +1,6 @@
 ﻿using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
 using PersonalWebsite.Shared.Models;
-using System;
 using System.Collections.Generic;
 
 namespace PersonalWebsite.Shared.Services
@@ -51,16 +50,31 @@ namespace PersonalWebsite.Shared.Services
         {
             var cell = Board.Cells[Board.Width * hPos + wPos];
             ChangeCellType(cell, BoardCellType.Goal);
-
-            foreach (var c in cell.Neighbours)
-                if (c != null)
-                    ChangeCellType(c, BoardCellType.Goal);
         }
 
+
+        /*
+          The universe of the Game of Life is an infinite, two-dimensional orthogonal grid of square cells, each of which is in one of two possible states, 
+          live or dead, (or populated and unpopulated, respectively). Every cell interacts with its eight neighbours, which are the cells that are horizontally,
+          vertically, or diagonally adjacent. At each step in time, the following transitions occur:
+
+            Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+            Any live cell with two or three live neighbours lives on to the next generation.
+            Any live cell with more than three live neighbours dies, as if by overpopulation.
+            Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+
+          These rules, which compare the behavior of the automaton to real life, can be condensed into the following:
+
+            Any live cell with two or three live neighbours survives.
+            Any dead cell with three live neighbours becomes a live cell.
+            All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+        */
         public void Tick()
         {
             AddStatistic(BoardStatistic.Generation, 1);
-            Console.WriteLine("TICK");
+
+            var newCellStats = Board.Cells.Clone();
+
         }
 
         public int GetStatistic(BoardStatistic stat)
@@ -81,15 +95,15 @@ namespace PersonalWebsite.Shared.Services
 
         private void DecorateCells()
         {
-            var cells = Board.Cells;
-            var rand = new Random(DateTime.Now.Millisecond);
-            var randCount = rand.Next(30, 50);
-
-            for (int i = 0; i < randCount; i++)
-            {
-                var randomCell = cells[rand.Next(0, cells.Length)];
-                ChangeCellType(randomCell, BoardCellType.Goal);
-            }
+            //var cells = Board.Cells;
+            //var rand = new Random(DateTime.Now.Millisecond);
+            //var randCount = rand.Next(30, 50);
+            //
+            //for (int i = 0; i < randCount; i++)
+            //{
+            //    var randomCell = cells[rand.Next(0, cells.Length)];
+            //    ChangeCellType(randomCell, BoardCellType.Goal);
+            //}
         }
 
         private void ChangeCellType(BoardCell cell, BoardCellType toType)
