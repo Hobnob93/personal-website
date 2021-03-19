@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PersonalWebsite.Shared.Enums;
+using System;
 using System.Linq;
 
 namespace PersonalWebsite.Shared.Extensions
@@ -18,6 +19,50 @@ namespace PersonalWebsite.Shared.Extensions
             }
 
             return value.ToString();
+        }
+
+        public static bool IsGenerallyNorth(this NeighbourDirection dir)
+        {
+            return dir switch
+            {
+                NeighbourDirection.North => true,
+                NeighbourDirection.NorthEast => true,
+                NeighbourDirection.NorthWest => true,
+                _ => false
+            };
+        }
+
+        public static bool IsGenerallyEast(this NeighbourDirection dir)
+        {
+            return dir switch
+            {
+                NeighbourDirection.East => true,
+                NeighbourDirection.NorthEast => true,
+                NeighbourDirection.SouthEast => true,
+                _ => false
+            };
+        }
+
+        public static bool IsGenerallySouth(this NeighbourDirection dir)
+        {
+            return dir switch
+            {
+                NeighbourDirection.South => true,
+                NeighbourDirection.SouthEast => true,
+                NeighbourDirection.SouthWest => true,
+                _ => false
+            };
+        }
+
+        public static bool IsGenerallyWest(this NeighbourDirection dir)
+        {
+            return dir switch
+            {
+                NeighbourDirection.West => true,
+                NeighbourDirection.NorthWest => true,
+                NeighbourDirection.SouthWest => true,
+                _ => false
+            };
         }
     }
 }
