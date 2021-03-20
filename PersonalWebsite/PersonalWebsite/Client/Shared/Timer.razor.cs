@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PersonalWebsite.Shared.Enums;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using TTimer = System.Threading.Timer;
 
@@ -10,7 +11,7 @@ namespace PersonalWebsite.Client.Shared
     {
         private PlaySpeed speed;
         private bool active;
-        private double[] playSpeeds = new[] { 5, 2.5, 1.5, 1.0, 0.5 };
+        private double[] playSpeeds = new[] { 2.0, 1.0, 0.75, 0.5, 0.2 };
         private TTimer timer;
         
         [Parameter]
@@ -35,7 +36,9 @@ namespace PersonalWebsite.Client.Shared
 
         private void InitialiseTimer()
         {
+            timer.Change(Timeout.Infinite, Timeout.Infinite);
             timer?.Dispose();
+            timer = null;
 
             if (active)
             {

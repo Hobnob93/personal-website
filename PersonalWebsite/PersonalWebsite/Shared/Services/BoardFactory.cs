@@ -55,7 +55,8 @@ namespace PersonalWebsite.Shared.Services
                     cell.H = h;
                     cell.W = w;
                     cell.Neighbours = Enum.GetValues<NeighbourDirection>()
-                        .Select(nd => FindNeighbour(nd, cells, i, width, wrapEdge))
+                        .Select(nd => FindNeighbourIndex(nd, cells, i, width, wrapEdge))
+                        .Where(i => i != -1)
                         .ToArray();
 
                     if (clear)
@@ -64,7 +65,7 @@ namespace PersonalWebsite.Shared.Services
             }
         }
 
-        private BoardCell FindNeighbour(NeighbourDirection dir, BoardCell[] cells, int curIndex, int width, bool wrapEdge)
+        private int FindNeighbourIndex(NeighbourDirection dir, BoardCell[] cells, int curIndex, int width, bool wrapEdge)
         {
             var neighbourIndex = dir switch
             {
@@ -97,21 +98,21 @@ namespace PersonalWebsite.Shared.Services
                     neighbourIndex -= width;           // cell is on right side, neighbour needs to be same row but on far left
 
                 if (neighbourIndex < 0 || neighbourIndex >= cells.Length)
-                    return null;                        // neighbour index is out of range
+                    return -1;                        // neighbour index is out of range
             }
             else
             {
                 if (neighbourIndex < 0 || neighbourIndex >= cells.Length)
-                    return null;                        // neighbour index is out of range
+                    return -1;                        // neighbour index is out of range
 
                 if (dir.IsGenerallyWest() && cellIsFarLeft)
-                    return null;                        // cell is on left side, but neighbour index is on previous row on far right side
+                    return -1;                        // cell is on left side, but neighbour index is on previous row on far right side
 
                 if (dir.IsGenerallyEast() && cellIsFarRight)
-                    return null;                        // cell is on right side, but neighbour index is on next row on far left side
+                    return -1;                        // cell is on right side, but neighbour index is on next row on far left side
             }
 
-            return cells[neighbourIndex];
+            return neighbourIndex;
         }
     }
 }
