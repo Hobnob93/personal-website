@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System;
+using Microsoft.AspNetCore.Components;
 using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace PersonalWebsite.Client.Shared
 {
@@ -27,24 +29,24 @@ namespace PersonalWebsite.Client.Shared
             InitialiseBoard();
         }
 
-        protected void InitialiseBoard()
+        private void InitialiseBoard()
         {
             var (height, width) = Size switch
             {
-                GridSize.ExtraExtraSmall => (11, 40),
-                GridSize.ExtraSmall => (15, 50),
-                GridSize.Small => (20, 60),
-                GridSize.Medium => (25, 70),
-                GridSize.Large => (30, 80),
-                GridSize.ExtraLarge => (35, 90),
-                GridSize.ExtraExtraLarge => (40, 100),
-                _ => (25, 70)
+                GridSize.ExtraExtraSmall => (12, 40),
+                GridSize.ExtraSmall => (15, 45),
+                GridSize.Small => (18, 50),
+                GridSize.Medium => (21, 55),
+                GridSize.Large => (24, 60),
+                GridSize.ExtraLarge => (27, 65),
+                GridSize.ExtraExtraLarge => (30, 70),
+                _ => (21, 55)
             };
 
             BoardService.Initialise(height, width, EdgeWrap);
         }
 
-        protected void OnGridSizeChanged(GridSize size)
+        private void OnGridSizeChanged(GridSize size)
         {
             if (this.size == size)
                 return;
@@ -63,10 +65,9 @@ namespace PersonalWebsite.Client.Shared
             BoardService.Reset(false, wrapEdge);
         }
 
-        public async Task CellInteracted(int hPos, int wPos)
+        private void CellInteracted(int hPos, int wPos)
         {
             BoardService.OnCellInteracted(hPos, wPos);
-            await OnCellInteracted.InvokeAsync();
         }
 
         public void Tick()

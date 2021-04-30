@@ -1,4 +1,5 @@
-﻿using PersonalWebsite.Shared.Enums;
+﻿using System.Threading.Tasks;
+using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Models;
 
 namespace PersonalWebsite.Shared.Interfaces

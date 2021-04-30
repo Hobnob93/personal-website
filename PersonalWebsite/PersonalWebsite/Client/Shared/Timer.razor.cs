@@ -36,7 +36,7 @@ namespace PersonalWebsite.Client.Shared
 
         private void InitialiseTimer()
         {
-            timer.Change(Timeout.Infinite, Timeout.Infinite);
+            timer?.Change(Timeout.Infinite, Timeout.Infinite);
             timer?.Dispose();
             timer = null;
 
