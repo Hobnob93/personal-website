@@ -1,4 +1,8 @@
-﻿using PersonalWebsite.Client.Shared;
+﻿// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable ClassNeverInstantiated.Global
+
+using System.Threading.Tasks;
+using PersonalWebsite.Client.Shared;
 using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Extensions;
 
@@ -68,11 +72,6 @@ namespace PersonalWebsite.Client.Pages
             {
                 Board.Tick();
             }
-        }
-
-        public void OnUserClickedCell()
-        {
-            ShouldRender();
         }
     }
 }
