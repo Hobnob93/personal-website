@@ -3,76 +3,49 @@ using Microsoft.AspNetCore.Components;
 using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
 using System.Threading.Tasks;
+using Fluxor;
+using Fluxor.Blazor.Web.Components;
 using Microsoft.AspNetCore.Components.Web;
+using PersonalWebsite.Client.Actions;
+using PersonalWebsite.Client.Store;
 
 namespace PersonalWebsite.Client.Shared
 {
     public partial class BoardWidget
     {
-        private GridSize size;
-
-        [Inject]
-        public IBoardService BoardService { get; set; }
+        [Inject] public IBoardService BoardService { get; set; }
+        [Inject] public IState<BoardState> BoardState { get; set; }
+        [Inject] public IDispatcher Dispatcher { get; set; }
+        
 
         [Parameter]
         public BoardType Type { get; set; }
-        [Parameter]
-        public GridSize Size { get => size; set => OnGridSizeChanged(value); }
-        [Parameter]
-        public bool EdgeWrap { get; set; }
-        [Parameter]
-        public EventCallback OnCellInteracted { get; set; }
 
+        public GridSize Size => BoardState.Value.GridSize;
+        public bool EdgeWrap => BoardState.Value.DoEdgeWrap;
 
+        
         protected override void OnInitialized()
         {
-            InitialiseBoard();
+            BoardState.StateChanged += BoardStateChanged;
+            Dispatcher.Dispatch(new InitializeBoardAction());
+            Console.WriteLine(BoardService == null);
         }
 
-        private void InitialiseBoard()
+        private void BoardStateChanged(object? obj, BoardState state)
         {
-            var (height, width) = Size switch
-            {
-                GridSize.ExtraExtraSmall => (12, 40),
-                GridSize.ExtraSmall => (15, 45),
-                GridSize.Small => (18, 50),
-                GridSize.Medium => (21, 55),
-                GridSize.Large => (24, 60),
-                GridSize.ExtraLarge => (27, 65),
-                GridSize.ExtraExtraLarge => (30, 70),
-                _ => (21, 55)
-            };
-
-            BoardService.Initialise(height, width, EdgeWrap);
-        }
-
-        private void OnGridSizeChanged(GridSize size)
-        {
-            if (this.size == size)
-                return;
-
-            this.size = size;
-            InitialiseBoard();
-        }
-
-        public void ClearBoard(bool wrapEdge)
-        {
-            BoardService.Reset(true, wrapEdge);
-        }
-
-        public void OnWrapEdgeChanged(bool wrapEdge)
-        {
-            BoardService.Reset(false, wrapEdge);
+            StateHasChanged();
         }
 
         private void CellInteracted(int hPos, int wPos)
         {
-            BoardService.OnCellInteracted(hPos, wPos);
+            BoardService.OnCellInteracted(BoardState.Value.Board, hPos, wPos);
         }
 
-        public void Tick()
+        public new void Dispose()
         {
-            BoardService.Tick();
+            base.Dispose();
+            BoardState.StateChanged -= BoardStateChanged;
         }
     }
 }

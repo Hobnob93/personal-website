@@ -1,51 +1,10 @@
 ﻿@page "/visual-algorithms/cellular-automata"
+@using PersonalWebsite.Shared.Enums
 
 <MudContainer>
     <MudPaper>
-        <MudToolBar>
-            <MudTooltip Text="Help" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Outlined.Help" Color="Color.Primary" />
-            </MudTooltip>
-            <MudToolBarSpacer />
-            <MudTooltip Text="@PlaySpeedTooltip" Placement="Placement.Top">
-                <MudMenu Icon="@Icons.Material.Filled.Timer" OffsetY="true">
-                    <MudSlider Min="0" Max="4" Value="@PlaySpeedRaw" ValueChanged="(int e) => OnSpeedChanged(e)"></MudSlider>
-                </MudMenu>
-            </MudTooltip>
-            <MudTooltip Text="Autoplay" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Filled.PlayArrow" Color="IsPlaying ? Color.Secondary : Color.Inherit" @onclick="Play" />
-            </MudTooltip>
-            <MudTooltip Text="Skip Frame" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Filled.SkipNext" @onclick="() => NextFrame(userClicked: true)" />
-            </MudTooltip>
-            <MudTooltip Text="Stop" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Filled.Stop" Color="IsPlaying ? Color.Inherit : Color.Tertiary" @onclick="Stop" />
-            </MudTooltip>
-            <MudToolBarSpacer />
-            <MudTooltip Text="@GridSizeTooltip" Placement="Placement.Top">
-                <MudMenu Icon="@Icons.Material.Filled.GridView" OffsetY="true">
-                    <MudSlider Min="0" Max="6" Value="@GridSizeRaw" ValueChanged="(int e) => OnGridSizeChanged(e)"></MudSlider>
-                </MudMenu>
-            </MudTooltip>
-            <MudTooltip Text="Edge Wrap" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Filled.WrapText" Color="DoEdgeWrap ? Color.Secondary : Color.Tertiary" @onclick="ToggleWrapEdge" />
-            </MudTooltip>
-            <MudTooltip Text="Pick Preset" Placement="Placement.Top">
-                <MudMenu Icon="@Icons.Material.Filled.Colorize" OffsetY="true" Dense="true">
-                    <MudMenuItem>Still Lifes</MudMenuItem>
-                    <MudMenuItem>Oscillators</MudMenuItem>
-                    <MudMenuItem>Spaceships</MudMenuItem>
-                    <MudMenuItem>Infinite Growth</MudMenuItem>
-                </MudMenu>
-            </MudTooltip>
-            <MudToolBarSpacer />
-            <MudTooltip Text="Reset Grid" Placement="Placement.Top">
-                <MudIconButton Icon="@Icons.Material.Outlined.GridOff" @onclick="ClearBoard" />
-            </MudTooltip>
-        </MudToolBar>
-
-        <BoardWidget @ref="Board" Type="BoardType" Size="GridSize" EdgeWrap="DoEdgeWrap" />
-        <Timer Speed="PlaySpeed" Active="IsPlaying" OnTimerTick="NextFrame" />
+        <BoardToolbar @ref="BoardToolbar"></BoardToolbar>
+        <BoardWidget @ref="Board" Type="BoardType" />
 
         <MudGrid>
             <MudItem md="3">

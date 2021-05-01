@@ -6,6 +6,7 @@ using PersonalWebsite.Shared.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Fluxor;
 
 namespace PersonalWebsite.Client
 {
@@ -18,9 +19,18 @@ namespace PersonalWebsite.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddMudServices();
+            builder.Services.AddFluxor(o =>
+            {
+#if DEBUG
+                o.ScanAssemblies(typeof(Program).Assembly)
+                    .UseReduxDevTools();
+#else
+                o.ScanAssemblies(typeof(Program).Assembly);
+#endif
+            });
 
-            builder.Services.AddScoped<IBoardFactory, BoardFactory>();
-            builder.Services.AddScoped<IBoardService, GameOfLifeBoard>();
+            builder.Services.AddSingleton<IBoardFactory, BoardFactory>();
+            builder.Services.AddSingleton<IBoardService, GameOfLifeBoard>();
 
             await builder.Build().RunAsync();
         }

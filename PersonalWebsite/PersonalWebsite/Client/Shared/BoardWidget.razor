@@ -1,5 +1,8 @@
-﻿@{
-    var board = BoardService.Board;
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@implements IDisposable
+
+@{
+    var board = BoardState.Value.Board;
     var height = board.Height;
     var width = board.Width;
 }
