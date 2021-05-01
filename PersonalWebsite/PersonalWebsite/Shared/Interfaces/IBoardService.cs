@@ -6,13 +6,10 @@ namespace PersonalWebsite.Shared.Interfaces
 {
     public interface IBoardService
     {
-        Board Board { get; }
-
-        void Initialise(int height, int width, bool wrapEdge);
-        void OnGridSizeChanged(int height, int width, bool wrapEdge);
-        void Tick();
-        void Reset(bool clear, bool wrapEdge);
-        void OnCellInteracted(int hPos, int wPos);
+        Board Initialise(int height, int width, bool wrapEdge);
+        void Tick(Board board);
+        Board Reset(Board board, bool clear, bool wrapEdge);
+        void OnCellInteracted(Board board, int hPos, int wPos);
         int GetStatistic(BoardStatistic stat);
     }
 }

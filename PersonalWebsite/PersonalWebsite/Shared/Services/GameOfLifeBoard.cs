@@ -13,9 +13,6 @@ namespace PersonalWebsite.Shared.Services
         private readonly IBoardFactory boardFactory;
         private Dictionary<BoardStatistic, int> statistics;
 
-        public Board Board { get; private set; }
-
-
         public GameOfLifeBoard(IBoardFactory boardFactory)
         {
             this.boardFactory = boardFactory;
@@ -24,48 +21,45 @@ namespace PersonalWebsite.Shared.Services
         }
 
 
-        public void Initialise(int height, int width, bool wrapEdge)
+        public Board Initialise(int height, int width, bool wrapEdge)
         {
-            Board = boardFactory.BuildBoard(BoardType.Automata, height, width, wrapEdge);
+            var board = boardFactory.BuildBoard(BoardType.Automata, height, width, wrapEdge);
             statistics.Clear();
-            DecorateCells();
+            DecorateCells(board);
+
+            return board;
         }
 
-        public void OnGridSizeChanged(int height, int width, bool wrapEdge)
+        public Board Reset(Board board, bool clear, bool edgeWrap)
         {
-            Board = boardFactory.BuildBoard(BoardType.Automata, height, width, wrapEdge);
-            statistics.Clear();
-            DecorateCells();
-        }
-
-        public void Reset(bool clear, bool edgeWrap)
-        {
-            Board = boardFactory.RecycleBoard(BoardType.Automata, Board, clear, edgeWrap);
+            board = boardFactory.RecycleBoard(BoardType.Automata, board, clear, edgeWrap);
 
             if (clear)
             {
                 statistics.Clear();
-                DecorateCells();
+                DecorateCells(board);
             }
+
+            return board;
         }
 
-        public void OnCellInteracted(int hPos, int wPos)
+        public void OnCellInteracted(Board board, int hPos, int wPos)
         {
-            var cell = Board.Cells[Board.Width * hPos + wPos];
+            var cell = board.Cells[board.Width * hPos + wPos];
             ChangeCellType(cell, BoardCellType.Goal);
         }
 
-        public void Tick()
+        public void Tick(Board board)
         {
             AddStatistic(BoardStatistic.Generation, 1);
 
-            var oldCellStates = Board.Cells
+            var oldCellStates = board.Cells
                 .Select(c => c.Type)
                 .ToArray();
 
             for (var i = 0; i < oldCellStates.Length; i++)
             {
-                var cell = Board.Cells[i];
+                var cell = board.Cells[i];
 
                 var numLiveNeighbours = 0;
                 for (var n = 0; n < cell.Neighbours.Length; n++)
@@ -118,7 +112,7 @@ namespace PersonalWebsite.Shared.Services
             statistics[stat] = val;
         }
 
-        private void DecorateCells()
+        private void DecorateCells(Board board)
         {
             //var cells = Board.Cells;
             //var rand = new Random(DateTime.Now.Millisecond);
