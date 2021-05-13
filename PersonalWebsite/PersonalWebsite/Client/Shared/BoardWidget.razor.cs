@@ -29,7 +29,6 @@ namespace PersonalWebsite.Client.Shared
         {
             BoardState.StateChanged += BoardStateChanged;
             Dispatcher.Dispatch(new InitializeBoardAction());
-            Console.WriteLine(BoardService == null);
         }
 
         private void BoardStateChanged(object? obj, BoardState state)
@@ -39,7 +38,14 @@ namespace PersonalWebsite.Client.Shared
 
         private void CellInteracted(int hPos, int wPos)
         {
-            BoardService.OnCellInteracted(BoardState.Value.Board, hPos, wPos);
+            if (BoardState.Value.IsAutoPlaying)
+                return;
+            
+            Dispatcher.Dispatch(new CellClickedAction
+            {
+                H = hPos,
+                W = wPos
+            });
         }
 
         public new void Dispose()
