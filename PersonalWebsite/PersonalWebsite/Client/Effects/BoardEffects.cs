@@ -44,13 +44,16 @@ namespace PersonalWebsite.Client.Effects
         [EffectMethod(typeof(ClearBoardAction))]
         public Task OnClearBoard(IDispatcher dispatcher)
         {
+            dispatcher.Dispatch(new SetAutoPlayAction
+            {
+                IsAutoPlaying = false
+            });
+            
             return Task.Run(() =>
             {
-                var board = boardService.Reset(boardState.Value.Board, true, boardState.Value.DoEdgeWrap);
-                
                 dispatcher.Dispatch(new UpdateBoardAction
                 {
-                    NewBoard = board
+                    NewBoard = boardService.Reset(boardState.Value.Board, true, boardState.Value.DoEdgeWrap)
                 });
             });
         }
@@ -60,11 +63,33 @@ namespace PersonalWebsite.Client.Effects
         {
             return Task.Run(() =>
             {
-                var board = boardService.Reset(boardState.Value.Board, false, boardState.Value.DoEdgeWrap);
-                
                 dispatcher.Dispatch(new UpdateBoardAction
                 {
-                    NewBoard = board
+                    NewBoard = boardService.Reset(boardState.Value.Board, false, boardState.Value.DoEdgeWrap)
+                });
+            });
+        }
+
+        [EffectMethod(typeof(TickBoardAction))]
+        public Task OnTickBoard(IDispatcher dispatcher)
+        {
+            return Task.Run(() =>
+            {
+                dispatcher.Dispatch(new UpdateBoardAction
+                {
+                    NewBoard = boardService.Tick(boardState.Value.Board)
+                });
+            });
+        }
+
+        [EffectMethod]
+        public Task OnCellClicked(CellClickedAction action, IDispatcher dispatcher)
+        {
+            return Task.Run(() =>
+            {
+                dispatcher.Dispatch(new UpdateBoardAction
+                {
+                    NewBoard = boardService.CellInteracted(boardState.Value.Board, action.H, action.W)
                 });
             });
         }

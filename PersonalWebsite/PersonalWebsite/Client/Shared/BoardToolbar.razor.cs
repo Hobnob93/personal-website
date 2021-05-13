@@ -80,11 +80,11 @@ namespace PersonalWebsite.Client.Shared
                     IsAutoPlaying = false
                 });
                 
-                BoardService.Tick(BoardState.Value.Board);
+                Dispatcher.Dispatch(new TickBoardAction());
             }
             else if (IsPlaying)
             {
-                BoardService.Tick(BoardState.Value.Board);
+                Dispatcher.Dispatch(new TickBoardAction());
             }
         }
     }

@@ -19,21 +19,21 @@
     </MudTooltip>
     <MudToolBarSpacer />
     <MudTooltip Text="@GridSizeTooltip" Placement="Placement.Top">
-        <MudMenu Icon="@Icons.Material.Filled.GridView" OffsetY="true">
+        <MudMenu Icon="@Icons.Material.Filled.GridView" OffsetY="true" Disabled="IsPlaying">
             <MudSlider Min="0" Max="6" Value="@GridSizeRaw" ValueChanged="(int e) => OnGridSizeChanged(e)"></MudSlider>
         </MudMenu>
     </MudTooltip>
     <MudTooltip Text="Edge Wrap" Placement="Placement.Top">
-        <MudIconButton Icon="@Icons.Material.Filled.WrapText" Color="DoEdgeWrap ? Color.Secondary : Color.Tertiary" @onclick="ToggleWrapEdge" />
+        <MudIconButton Icon="@Icons.Material.Filled.WrapText" Color="DoEdgeWrap ? Color.Secondary : Color.Tertiary" @onclick="ToggleWrapEdge" Disabled="IsPlaying" />
     </MudTooltip>
     <MudTooltip Text="Draw Type" Placement="Placement.Top">
-        <MudMenu Icon="@Icons.Material.Filled.Colorize" OffsetY="true" Dense="true">
+        <MudMenu Icon="@Icons.Material.Filled.Colorize" OffsetY="true" Dense="true" Disabled="IsPlaying">
             <MudMenuItem>Living Cell</MudMenuItem>
             <MudMenuItem>Dead Cell</MudMenuItem>
         </MudMenu>
     </MudTooltip>
     <MudTooltip Text="Pick Preset" Placement="Placement.Top">
-        <MudMenu Icon="@Icons.Material.Filled.AssignmentReturned" OffsetY="true" Dense="true">
+        <MudMenu Icon="@Icons.Material.Filled.AssignmentReturned" OffsetY="true" Dense="true" Disabled="IsPlaying">
             <MudMenuItem>Still Lifes</MudMenuItem>
             <MudMenuItem>Oscillators</MudMenuItem>
             <MudMenuItem>Spaceships</MudMenuItem>

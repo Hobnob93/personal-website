@@ -43,13 +43,15 @@ namespace PersonalWebsite.Shared.Services
             return board;
         }
 
-        public void OnCellInteracted(Board board, int hPos, int wPos)
+        public Board CellInteracted(Board board, int hPos, int wPos)
         {
             var cell = board.Cells[board.Width * hPos + wPos];
             ChangeCellType(cell, BoardCellType.Goal);
+
+            return board;
         }
 
-        public void Tick(Board board)
+        public Board Tick(Board board)
         {
             AddStatistic(BoardStatistic.Generation, 1);
 
@@ -75,6 +77,8 @@ namespace PersonalWebsite.Shared.Services
                 else
                     ChangeCellType(cell, DeadCellNewState(numLiveNeighbours));
             }
+
+            return board;
         }
 
         private BoardCellType LiveNewCellState(int numLiveNeighbours)
