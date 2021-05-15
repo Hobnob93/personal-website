@@ -1,4 +1,6 @@
-﻿namespace PersonalWebsite.Client.Actions
+﻿using PersonalWebsite.Shared.Enums;
+
+namespace PersonalWebsite.Client.Actions
 {
     public record CellClickedAction
     {

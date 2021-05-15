@@ -1,4 +1,9 @@
-﻿<MudToolBar>
+﻿@using PersonalWebsite.Shared.Enums
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@implements IDisposable
+
+<MudToolBar>
     <MudTooltip Text="Help" Placement="Placement.Top">
         <MudIconButton Icon="@Icons.Material.Outlined.Help" Color="Color.Primary" />
     </MudTooltip>
@@ -28,16 +33,20 @@
     </MudTooltip>
     <MudTooltip Text="Draw Type" Placement="Placement.Top">
         <MudMenu Icon="@Icons.Material.Filled.Colorize" OffsetY="true" Dense="true" Disabled="IsPlaying">
-            <MudMenuItem>Living Cell</MudMenuItem>
-            <MudMenuItem>Dead Cell</MudMenuItem>
+            <MudMenuItem OnClick="() => OnPenChanged(BoardCellType.Goal)">Living Cell</MudMenuItem>
+            <MudMenuItem OnClick="() => OnPenChanged(BoardCellType.Normal)">Dead Cell</MudMenuItem>
+            <MudMenuItem OnClick="() => OnPenChanged(BoardCellType.Empty)">Wall</MudMenuItem>
         </MudMenu>
+        <div class="selected-cell type-@((int)CurrentPen)" hidden="@IsPlaying"></div>
     </MudTooltip>
     <MudTooltip Text="Pick Preset" Placement="Placement.Top">
         <MudMenu Icon="@Icons.Material.Filled.AssignmentReturned" OffsetY="true" Dense="true" Disabled="IsPlaying">
-            <MudMenuItem>Still Lifes</MudMenuItem>
-            <MudMenuItem>Oscillators</MudMenuItem>
-            <MudMenuItem>Spaceships</MudMenuItem>
-            <MudMenuItem>Infinite Growth</MudMenuItem>
+            <MudExpansionPanels>
+                <MudExpansionPanel Text="Still Lifes">Content</MudExpansionPanel>
+                <MudExpansionPanel Text="Oscillators">Content</MudExpansionPanel>
+                <MudExpansionPanel Text="Spaceships">Content</MudExpansionPanel>
+                <MudExpansionPanel Text="Infinite Growth">Content</MudExpansionPanel>
+            </MudExpansionPanels>
         </MudMenu>
     </MudTooltip>
     <MudToolBarSpacer />

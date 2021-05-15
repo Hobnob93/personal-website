@@ -50,5 +50,14 @@ namespace PersonalWebsite.Client.Reducers
                 Board = action.NewBoard
             };
         }
+
+        [ReducerMethod]
+        public static BoardState OnPenTypeChanged(BoardState state, ChangePenAction action)
+        {
+            return state with
+            {
+                CurrentPen = action.NewPen
+            };
+        }
     }
 }
