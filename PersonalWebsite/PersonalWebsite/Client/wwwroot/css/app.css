@@ -59,15 +59,26 @@
     min-width: 0.5em;
 }
 
-.board-cell.type-0 {
+.selected-cell {
+    border: 1px solid grey;
+    background-color: rgba(0, 0, 0, 0);
+    height: 20%;
+    width: 20%;
+    position: absolute;
+    bottom: 20%;
+    right: 20%;
+    pointer-events: none;
+}
+
+.board-cell.type-0, .selected-cell.type-0 {
     background: #7d7d7d;
 }
 
-.board-cell.type-1 {
+.board-cell.type-1, .selected-cell.type-1 {
     background: var(--mud-palette-surface);
 }
 
-.board-cell.type-5 {
+.board-cell.type-5, .selected-cell.type-5 {
     background: var(--mud-palette-secondary);
 }
 

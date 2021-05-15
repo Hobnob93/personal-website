@@ -8,7 +8,7 @@ namespace PersonalWebsite.Shared.Interfaces
         Board Initialise(int height, int width, bool wrapEdge);
         Board Tick(Board board);
         Board Reset(Board board, bool clear, bool wrapEdge);
-        Board CellInteracted(Board board, int hPos, int wPos);
+        Board CellInteracted(Board board, int hPos, int wPos, BoardCellType type);
         int GetStatistic(BoardStatistic stat);
     }
 }

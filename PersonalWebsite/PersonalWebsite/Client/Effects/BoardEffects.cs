@@ -2,6 +2,7 @@
 using Fluxor;
 using PersonalWebsite.Client.Actions;
 using PersonalWebsite.Client.Store;
+using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
 
 namespace PersonalWebsite.Client.Effects
@@ -24,7 +25,7 @@ namespace PersonalWebsite.Client.Effects
             {
                 var (height, width) = boardState.Value.GetBoardDimensions();
                 var board = boardService.Initialise(height, width, boardState.Value.DoEdgeWrap);
-                
+
                 dispatcher.Dispatch(new UpdateBoardAction
                 {
                     NewBoard = board
@@ -89,7 +90,7 @@ namespace PersonalWebsite.Client.Effects
             {
                 dispatcher.Dispatch(new UpdateBoardAction
                 {
-                    NewBoard = boardService.CellInteracted(boardState.Value.Board, action.H, action.W)
+                    NewBoard = boardService.CellInteracted(boardState.Value.Board, action.H, action.W, boardState.Value.CurrentPen)
                 });
             });
         }

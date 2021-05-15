@@ -36,15 +36,18 @@ namespace PersonalWebsite.Client.Shared
             StateHasChanged();
         }
 
-        private void CellInteracted(int hPos, int wPos)
+        private async Task CellInteracted(int hPos, int wPos)
         {
-            if (BoardState.Value.IsAutoPlaying)
-                return;
-            
-            Dispatcher.Dispatch(new CellClickedAction
+            await Task.Run(() =>
             {
-                H = hPos,
-                W = wPos
+                if (BoardState.Value.IsAutoPlaying)
+                    return;
+            
+                Dispatcher.Dispatch(new CellClickedAction
+                {
+                    H = hPos,
+                    W = wPos
+                });
             });
         }
 

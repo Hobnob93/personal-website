@@ -43,10 +43,10 @@ namespace PersonalWebsite.Shared.Services
             return board;
         }
 
-        public Board CellInteracted(Board board, int hPos, int wPos)
+        public Board CellInteracted(Board board, int hPos, int wPos, BoardCellType type)
         {
             var cell = board.Cells[board.Width * hPos + wPos];
-            ChangeCellType(cell, BoardCellType.Goal);
+            ChangeCellType(cell, type);
 
             return board;
         }

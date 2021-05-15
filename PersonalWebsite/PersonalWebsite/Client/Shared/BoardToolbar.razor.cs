@@ -1,4 +1,5 @@
-﻿using Fluxor;
+﻿using System;
+using Fluxor;
 using Microsoft.AspNetCore.Components;
 using PersonalWebsite.Client.Actions;
 using PersonalWebsite.Client.Store;
@@ -25,7 +26,20 @@ namespace PersonalWebsite.Client.Shared
 
         public bool IsPlaying => BoardState.Value.IsAutoPlaying;
         public bool DoEdgeWrap => BoardState.Value.DoEdgeWrap;
+        public BoardCellType CurrentPen => BoardState.Value.CurrentPen;
+        public string SelectedCellHiddenState => IsPlaying ? "Hidden" : string.Empty;
         
+        
+        protected override void OnInitialized()
+        {
+            BoardState.StateChanged += BoardStateChanged;
+            OnPenChanged(BoardCellType.Goal);
+        }
+        
+        private void BoardStateChanged(object? obj, BoardState state)
+        {
+            StateHasChanged();
+        }
         
         public void ClearBoard()
         {
@@ -86,6 +100,20 @@ namespace PersonalWebsite.Client.Shared
             {
                 Dispatcher.Dispatch(new TickBoardAction());
             }
+        }
+
+        public void OnPenChanged(BoardCellType newPen)
+        {
+            Dispatcher.Dispatch(new ChangePenAction
+            {
+                NewPen = newPen
+            });
+        }
+        
+        public new void Dispose()
+        {
+            base.Dispose();
+            BoardState.StateChanged -= BoardStateChanged;
         }
     }
 }

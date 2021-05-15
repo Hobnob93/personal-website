@@ -10,6 +10,7 @@ namespace PersonalWebsite.Client.Store
         public bool DoEdgeWrap { get; init; }
         public bool IsAutoPlaying { get; init; }
         public PlaySpeed PlaySpeed { get; init; }
+        public BoardCellType CurrentPen { get; init; }
 
         public (int height, int width) GetBoardDimensions()
         {
