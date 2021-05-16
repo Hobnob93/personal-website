@@ -15,8 +15,8 @@
         {
             var cell = board.Cells[width * h + w];
             var type = (int)cell.Type;
-            <td id="cell-@h-@w" class="board-cell type-@type" draggable="true" @onmousedown="() => CellInteracted(cell.H, cell.W)"
-                @ondragenter="() => CellInteracted(cell.H, cell.W)"></td>
+            <td id="cell-@h-@w" class="board-cell type-@type" draggable="true" @onmousedown="async () => await CellInteracted(cell.H, cell.W)"
+                @ondragenter="async () => await CellInteracted(cell.H, cell.W)"></td>
         }
     </tr>
 }

@@ -1,0 +1,11 @@
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@implements IDisposable
+
+<MudGrid>
+    @foreach (var item in StatItems)
+    {
+        <MudItem xs="6" md="3">
+            <MudText Align="Align.Center">@item.Name<br/>@BoardService.GetStatistic(item.Stat)</MudText>
+        </MudItem>
+    }
+</MudGrid>
