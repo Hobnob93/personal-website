@@ -18,8 +18,7 @@ namespace PersonalWebsite.Client.Shared
         [Inject] public IDispatcher Dispatcher { get; set; }
         
 
-        [Parameter]
-        public BoardType Type { get; set; }
+        [Parameter] public BoardType BoardType { get; set; }
 
         public GridSize Size => BoardState.Value.GridSize;
         public bool EdgeWrap => BoardState.Value.DoEdgeWrap;
