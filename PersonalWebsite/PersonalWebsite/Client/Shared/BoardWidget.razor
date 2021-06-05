@@ -1,17 +1,28 @@
 ﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @implements IDisposable
 
-<table class="board">
-    @for (var h = 0; h < Board.Height; h++)
-    {
-        <tr class="board-row">
-            @for (var w = 0; w < Board.Width; w++)
-            {
-                var cell = Board.Cells[Board.Width * h + w];
-                var type = (int)cell.Type;
-                <td id="cell-@h-@w" data-h="@h" data-w="@w" class="board-cell type-@type" draggable="true" @onmousedown="async () => await CellInteracted(cell.H, cell.W)"
-                    @ondragenter="async () => await CellInteracted(cell.H, cell.W)"></td>
-            }
-        </tr>
-    }
-</table>
+@if (Board != null)
+{
+    <table class="board" draggable="false">
+        @for (var h = 0; h < Board.Height; h++)
+        {
+            <tr class="board-row" draggable="false">
+                @for (var w = 0; w < Board.Width; w++)
+                {
+                    var cell = Board.Cells[Board.Width * h + w];
+                    var type = (int)cell.Type;
+                    <td id="cell-@h-@w" class="board-cell type-@type" data-h="@h" data-w="@w" draggable="false"></td>
+                }
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div id="loading-body" class="loading-element">
+        <div id="loading-container">
+            <div id="loading-sphere"></div>
+        </div>
+    </div>
+}
+

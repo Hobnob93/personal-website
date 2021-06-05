@@ -25,7 +25,6 @@ namespace PersonalWebsite.Client.Shared
         
         public IJSObjectReference BoardModule { get; set; }
         public Board Board { get; set; }
-
         public GridSize Size => BoardState.Value.GridSize;
         public bool EdgeWrap => BoardState.Value.DoEdgeWrap;
 
@@ -33,15 +32,9 @@ namespace PersonalWebsite.Client.Shared
         protected override async Task OnInitializedAsync()
         {
             BoardModule = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./scripts/board.js");
-        }
-
-        protected override async Task OnParametersSetAsync()
-        {
+            
             Board = BoardService.Initialise(Size, EdgeWrap);
             await BoardModule.InvokeVoidAsync("boardData.setBoard", Board);
-            
-            BoardState.StateChanged += BoardStateChanged;
-            Dispatcher.Dispatch(new InitializeBoardAction());
         }
 
         private void BoardStateChanged(object obj, BoardState state)
@@ -67,7 +60,6 @@ namespace PersonalWebsite.Client.Shared
         public new void Dispose()
         {
             base.Dispose();
-            BoardState.StateChanged -= BoardStateChanged;
         }
     }
 }
