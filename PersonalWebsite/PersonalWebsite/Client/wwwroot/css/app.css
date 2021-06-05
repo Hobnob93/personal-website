@@ -1,5 +1,52 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+/* Initial loading screen */
+#loading-body {
+    margin: 0;
+    background: radial-gradient(#27272f, #32333d);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#loading-container {
+    width: 350px;
+    height: 350px;
+    border-radius: 100%;
+    background: rgba(39, 39, 47, 1);
+    position: relative;
+}
+
+#loading-sphere:before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    border-bottom: 0 solid #ffffff05;
+
+    box-shadow:
+            0 -0.4em 0.8em 0.8em #5996e240 inset,
+            0 -0.2em 0.5em 0.4em #5996e250 inset,
+            0 -0.5em 0.1em #5996e280 inset,
+            0 -0.1em 0.5em #5996e2BB inset,
+            0 0.025em 0 #5996e2,
+            0 0.025em 0.05em #5996e2,
+            0 0.1em 0.1em #5996e290,
+            0 0.2em 0.3em #5996e260,
+            0 0.2em 0.4em 0.4em #5996e240;
+    filter: blur(0.05em);
+    animation: 1s rotate linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+/* Blazor error UI */
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -19,6 +66,7 @@
     top: 0.5rem;
 }
 
+/* Board rendering */
 .board {
     padding: 0.5em;
     width: 100%;
