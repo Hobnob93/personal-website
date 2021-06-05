@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using PersonalWebsite.Client.Actions;
 using PersonalWebsite.Client.Store;
+using PersonalWebsite.Shared.Extensions;
 using PersonalWebsite.Shared.Models;
 
 namespace PersonalWebsite.Client.Shared
@@ -29,18 +30,21 @@ namespace PersonalWebsite.Client.Shared
         public bool EdgeWrap => BoardState.Value.DoEdgeWrap;
 
 
-        protected override async Task OnParametersSetAsync()
+        protected override async Task OnInitializedAsync()
         {
             BoardModule = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./scripts/board.js");
-            var (height, width) = BoardState.Value.GetBoardDimensions();
-            Board = BoardService.Initialise(height, width, EdgeWrap);
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            Board = BoardService.Initialise(Size, EdgeWrap);
             await BoardModule.InvokeVoidAsync("boardData.setBoard", Board);
             
             BoardState.StateChanged += BoardStateChanged;
             Dispatcher.Dispatch(new InitializeBoardAction());
         }
 
-        private void BoardStateChanged(object? obj, BoardState state)
+        private void BoardStateChanged(object obj, BoardState state)
         {
             StateHasChanged();
         }

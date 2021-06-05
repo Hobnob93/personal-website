@@ -36,7 +36,7 @@ namespace PersonalWebsite.Client.Shared
             OnPenChanged(BoardCellType.Goal);
         }
         
-        private void BoardStateChanged(object? obj, BoardState state)
+        private void BoardStateChanged(object obj, BoardState state)
         {
             StateHasChanged();
         }

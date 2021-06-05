@@ -40,7 +40,7 @@ namespace PersonalWebsite.Client.Shared
             }
         }
 
-        private void BoardStateChanged(object? obj, BoardState state)
+        private void BoardStateChanged(object obj, BoardState state)
         {
             StateHasChanged();
         }
