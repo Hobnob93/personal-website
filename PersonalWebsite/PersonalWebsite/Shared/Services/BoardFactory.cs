@@ -35,7 +35,7 @@ namespace PersonalWebsite.Shared.Services
         private BoardCell[] CreateCells(Board board, int height, int width, bool wrapEdge)
         {
             var cells = Enumerable.Range(1, height * width)
-                .Select(i => new BoardCell { Board = board })
+                .Select(i => new BoardCell())
                 .ToArray();
 
             InitialiseCells(cells, height, width, false, wrapEdge);
