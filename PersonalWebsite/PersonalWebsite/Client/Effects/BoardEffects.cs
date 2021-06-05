@@ -23,8 +23,7 @@ namespace PersonalWebsite.Client.Effects
         {
             return Task.Run(() =>
             {
-                var (height, width) = boardState.Value.GetBoardDimensions();
-                var board = boardService.Initialise(height, width, boardState.Value.DoEdgeWrap);
+                var board = boardService.Initialise(boardState.Value.GridSize, boardState.Value.DoEdgeWrap);
 
                 dispatcher.Dispatch(new UpdateBoardAction
                 {

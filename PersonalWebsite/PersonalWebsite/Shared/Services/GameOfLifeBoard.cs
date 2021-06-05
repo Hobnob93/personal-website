@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PersonalWebsite.Shared.Extensions;
 
 namespace PersonalWebsite.Shared.Services
 {
@@ -21,8 +22,10 @@ namespace PersonalWebsite.Shared.Services
         }
 
 
-        public Board Initialise(int height, int width, bool wrapEdge)
+        public Board Initialise(GridSize size, bool wrapEdge)
         {
+            var (height, width) = size.GetDimensions();
+            
             var board = boardFactory.BuildBoard(BoardType.Automata, height, width, wrapEdge);
             statistics.Clear();
             DecorateCells(board);
