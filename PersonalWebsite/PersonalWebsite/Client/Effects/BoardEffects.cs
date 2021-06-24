@@ -2,7 +2,6 @@
 using Fluxor;
 using PersonalWebsite.Client.Actions;
 using PersonalWebsite.Client.Store;
-using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
 
 namespace PersonalWebsite.Client.Effects

@@ -1,7 +1,7 @@
 ﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @implements IDisposable
 
-@if (Board != null)
+@if (!Initializing)
 {
     <table class="board" draggable="false">
         @for (var h = 0; h < Board.Height; h++)
@@ -11,18 +11,16 @@
                 {
                     var cell = Board.Cells[Board.Width * h + w];
                     var type = (int)cell.Type;
-                    <td id="cell-@h-@w" class="board-cell type-@type" data-h="@h" data-w="@w" draggable="false"></td>
+                    <td id="cell-@h-@w" class="board-cell type-@type" data-h="@h" data-w="@w" data-t="@type" draggable="false"></td>
                 }
             </tr>
         }
     </table>
 }
-else
-{
-    <div id="loading-body" class="loading-element">
-        <div id="loading-container">
-            <div id="loading-sphere"></div>
-        </div>
+
+<div id="loading-body" class="loading-element">
+    <div id="loading-container">
+        <div id="loading-sphere"></div>
     </div>
-}
+</div>
 

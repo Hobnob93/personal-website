@@ -5,7 +5,7 @@
          if (e.buttons == 1) {
              let h = $(this).data('h');
              let w = $(this).data('w');
-             boardData.cellClicked(h, w);
+             boardData.cellInteracted(h, w);
          }
      });
  });
@@ -30,14 +30,39 @@ const cellTypes = {
 }
 
 export var boardData = {
+    doEdgeWrap: false,
     penType: cellTypes.GOAL,
-    board: {},
+    board: null,
     
     setBoard: function(board) {
+        let loader = $('#loading-body');
+        loader.removeClass('done');
+        
+        if (this.board != null) {
+            this.applyBoard(board);
+        }
+        
         this.board = board;
+        loader.addClass('done');
     },
     
-    cellClicked : function(h, w) {
+    applyBoard: function(board) {
+        for (let h = 0; h < board.height; h++) {
+            for (let w = 0; w < board.width; w++) {
+                let cellId = board.width * h + w;
+                let cell = board.cells[cellId];
+
+                let cellElement = $(`#cell-${h}-${w}`);
+                let curType = cellElement.attr('data-t');
+
+                cellElement.removeClass(`type-${curType}`);
+                cellElement.addClass(`type-${cell.type}`);
+                cellElement.attr('data-t', cell.type);
+            }
+        }
+    },
+    
+    cellInteracted: function(h, w) {
         let cellId = this.board.width * h + w;
         let boardCell = this.board.cells[cellId];
         
@@ -46,5 +71,14 @@ export var boardData = {
         
         boardCell.type = this.penType;
         cellElement.addClass(`type-${boardCell.type}`);
+        cellElement.attr('data-t', boardCell.type);
+    },
+    
+    setPenType: function (penType) {
+        this.penType = penType;
+    },
+    
+    setEdgeWrap: function(doEdgeWrap) {
+        this.doEdgeWrap = doEdgeWrap;
     }
  };

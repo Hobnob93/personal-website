@@ -17,29 +17,49 @@ namespace PersonalWebsite.Client.Shared
     public partial class BoardWidget
     {
         [Inject] public IJSRuntime JsRuntime { get; set; }
-        [Inject] public IBoardService BoardService { get; set; }
         [Inject] public IState<BoardState> BoardState { get; set; }
         [Inject] public IDispatcher Dispatcher { get; set; }
 
         [Parameter] public BoardType BoardType { get; set; }
         
         public IJSObjectReference BoardModule { get; set; }
-        public Board Board { get; set; }
+
+        public bool Initializing => BoardState.Value.Initializing;
+        public Board Board => BoardState.Value.Board;
         public GridSize Size => BoardState.Value.GridSize;
         public bool EdgeWrap => BoardState.Value.DoEdgeWrap;
 
 
         protected override async Task OnInitializedAsync()
         {
+            BoardState.StateChanged += BoardStateChanged;
+            
             BoardModule = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./scripts/board.js");
             
-            Board = BoardService.Initialise(Size, EdgeWrap);
-            await BoardModule.InvokeVoidAsync("boardData.setBoard", Board);
+            Dispatcher.Dispatch(new InitializeBoardAction());
         }
 
-        private void BoardStateChanged(object obj, BoardState state)
+        private async void BoardStateChanged(object obj, BoardState state)
         {
-            StateHasChanged();
+            try
+            {
+                if (BoardModule != null)
+                {
+                    foreach (var jsCall in state.JsCalls)
+                    {
+                        await BoardModule.InvokeVoidAsync(jsCall.Function, jsCall.Value);
+                    }
+
+                    state.JsCalls.Clear();
+                }
+
+                //StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
         }
 
         private async Task CellInteracted(int hPos, int wPos)
@@ -60,6 +80,7 @@ namespace PersonalWebsite.Client.Shared
         public new void Dispose()
         {
             base.Dispose();
+            BoardState.StateChanged -= BoardStateChanged;
         }
     }
 }
