@@ -17,6 +17,10 @@
     padding-bottom: 2em;
 }
 
+#loading-body.done {
+    display: none;
+}
+
 #loading-container {
     width: 350px;
     height: 350px;

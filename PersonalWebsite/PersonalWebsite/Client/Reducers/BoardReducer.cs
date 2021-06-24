@@ -1,6 +1,8 @@
-﻿using Fluxor;
+﻿using System.Linq;
+using Fluxor;
 using PersonalWebsite.Client.Actions;
 using PersonalWebsite.Client.Store;
+using PersonalWebsite.Shared.Models;
 
 namespace PersonalWebsite.Client.Reducers
 {
@@ -20,7 +22,13 @@ namespace PersonalWebsite.Client.Reducers
         {
             return state with
             {
-                DoEdgeWrap = !state.DoEdgeWrap
+                DoEdgeWrap = !state.DoEdgeWrap,
+                JsCalls = state.JsCalls.Append(new JsBoardCall
+                    {
+                        Function = "boardData.setEdgeWrap",
+                        Value = !state.DoEdgeWrap
+                    })
+                    .ToList()
             };
         }
         
@@ -47,7 +55,14 @@ namespace PersonalWebsite.Client.Reducers
         {
             return state with
             {
-                Board = action.NewBoard
+                Initializing = false,
+                Board = action.NewBoard,
+                JsCalls = state.JsCalls.Append(new JsBoardCall
+                    {
+                        Function = "boardData.setBoard",
+                        Value = action.NewBoard
+                    })
+                    .ToList()
             };
         }
 
@@ -56,7 +71,13 @@ namespace PersonalWebsite.Client.Reducers
         {
             return state with
             {
-                CurrentPen = action.NewPen
+                CurrentPen = action.NewPen,
+                JsCalls = state.JsCalls.Append(new JsBoardCall
+                    {
+                        Function = "boardData.setPenType",
+                        Value = action.NewPen
+                    })
+                    .ToList()
             };
         }
     }

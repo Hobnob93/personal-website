@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Fluxor;
 using PersonalWebsite.Client.Store;
 using PersonalWebsite.Shared.Enums;
@@ -12,8 +13,9 @@ namespace PersonalWebsite.Client.Features
 
         protected override BoardState GetInitialState()
         {
-            return new BoardState()
+            return new()
             {
+                Initializing = true,
                 Board = new Board
                 {
                     Cells = Array.Empty<BoardCell>()
@@ -21,7 +23,8 @@ namespace PersonalWebsite.Client.Features
                 GridSize = GridSize.Small,
                 PlaySpeed = PlaySpeed.Normal,
                 DoEdgeWrap = false,
-                IsAutoPlaying = false
+                IsAutoPlaying = false,
+                JsCalls = new List<JsBoardCall>()
             };
         }
     }
