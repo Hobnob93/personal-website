@@ -2,14 +2,15 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using PersonalWebsite.Shared.Enums;
-using PersonalWebsite.Shared.Models;
 
 namespace PersonalWebsite.Client.Pages
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public partial class GameOfLife
     {
-        [Inject] public IJSRuntime JsRuntime { get; set; }
-        public BoardType BoardType => BoardType.Automata;
+        [Inject] private IJSRuntime JsRuntime { get; set; }
+
+        private BoardType BoardType => BoardType.Automata;
 
         private IJSObjectReference processorModule;
 
