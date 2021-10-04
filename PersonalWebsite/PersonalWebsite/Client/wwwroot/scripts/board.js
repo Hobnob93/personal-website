@@ -1,15 +1,5 @@
 ﻿ // noinspection JSUnusedGlobalSymbols
 
- $(function() {
-     $('.board-cell').on('mousedown mousemove dragenter', function(e) {
-         if (e.buttons == 1) {
-             let h = $(this).data('h');
-             let w = $(this).data('w');
-             boardData.cellInteracted(h, w);
-         }
-     });
- });
-
 const boardTypes = {
     AUTOMATA: 0,
     PATHFINDING: 1,
@@ -33,20 +23,31 @@ export var boardData = {
     doEdgeWrap: false,
     penType: cellTypes.GOAL,
     board: null,
+    eventsHandled: false,
+    redrawCheckInterval: null,
     
     setBoard: function(board) {
-        let loader = $('#loading-body');
-        loader.removeClass('done');
-        
-        if (this.board != null) {
-            this.applyBoard(board);
-        }
-        
+        this.setBoardLoader(true);
         this.board = board;
-        loader.addClass('done');
+        this.eventsHandled = false;
+        this.redrawCheckInterval = window.setInterval(function() {
+            boardData.checkBoardIsDrawn(); 
+        }, 500);
     },
     
-    applyBoard: function(board) {
+    checkBoardIsDrawn: function() {
+        let board = this.board;
+        if (board == null || this.eventsHandled == true) {
+            return;
+        }
+        
+        let drawnCells = $('.board-cell');
+        if (drawnCells.length != (board.height * board.width)) {
+            return;
+        }
+        
+        clearInterval(this.redrawCheckInterval);
+        
         for (let h = 0; h < board.height; h++) {
             for (let w = 0; w < board.width; w++) {
                 let cellId = board.width * h + w;
@@ -60,6 +61,23 @@ export var boardData = {
                 cellElement.attr('data-t', cell.type);
             }
         }
+        
+        this.createEvents();
+    },
+    
+    createEvents: function() {
+        $('.board-cell').off();
+        
+        $('.board-cell').on('mousedown mousemove dragenter', function(e) {
+            if (e.buttons == 1) {
+                let h = Number($(this).attr('data-h'));
+                let w = Number($(this).attr('data-w'));
+                boardData.cellInteracted(h, w);
+            }
+        });
+
+        this.eventsHandled = true;
+        this.setBoardLoader(false);
     },
     
     cellInteracted: function(h, w) {
@@ -80,5 +98,17 @@ export var boardData = {
     
     setEdgeWrap: function(doEdgeWrap) {
         this.doEdgeWrap = doEdgeWrap;
+    },
+    
+    setBoardLoader: function(isLoading) {
+        let loader = $('#loading-body');
+        let table = $('#table-board');
+        if (isLoading) {
+            loader.removeClass('done');
+            table.attr('hidden', '');
+        } else {
+            loader.addClass('done');
+            table.removeAttr('hidden')
+        }
     }
  };

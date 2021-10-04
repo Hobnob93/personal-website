@@ -24,7 +24,7 @@
     </MudTooltip>
     <MudToolBarSpacer />
     <MudTooltip Text="@GridSizeTooltip" Placement="Placement.Top">
-        <MudMenu Icon="@Icons.Material.Filled.GridView" OffsetY="true" Disabled="IsPlaying">
+        <MudMenu @ref="GridMenu" Icon="@Icons.Material.Filled.GridView" OffsetY="true" Disabled="IsPlaying">
             <MudSlider Min="0" Max="6" Value="@GridSizeRaw" ValueChanged="(int e) => OnGridSizeChanged(e)"></MudSlider>
         </MudMenu>
     </MudTooltip>
@@ -54,5 +54,3 @@
         <MudIconButton Icon="@Icons.Material.Outlined.GridOff" @onclick="ClearBoard" />
     </MudTooltip>
 </MudToolBar>
-
-<Timer Speed="PlaySpeed" Active="IsPlaying" OnTimerTick="NextFrame" />

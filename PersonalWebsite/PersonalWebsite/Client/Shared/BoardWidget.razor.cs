@@ -7,6 +7,7 @@ using Fluxor;
 using Fluxor.Blazor.Web.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using MudBlazor.Extensions;
 using PersonalWebsite.Client.Actions;
 using PersonalWebsite.Client.Store;
 using PersonalWebsite.Shared.Extensions;
@@ -23,6 +24,7 @@ namespace PersonalWebsite.Client.Shared
         [Parameter] public BoardType BoardType { get; set; }
         
         public IJSObjectReference BoardModule { get; set; }
+        public ElementReference TableRef { get; set; }
 
         public bool Initializing => BoardState.Value.Initializing;
         public Board Board => BoardState.Value.Board;
@@ -33,9 +35,6 @@ namespace PersonalWebsite.Client.Shared
         protected override async Task OnInitializedAsync()
         {
             BoardState.StateChanged += BoardStateChanged;
-            
-            BoardModule = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./scripts/board.js");
-            
             Dispatcher.Dispatch(new InitializeBoardAction());
         }
 
@@ -43,23 +42,25 @@ namespace PersonalWebsite.Client.Shared
         {
             try
             {
-                if (BoardModule != null)
-                {
-                    foreach (var jsCall in state.JsCalls)
-                    {
-                        await BoardModule.InvokeVoidAsync(jsCall.Function, jsCall.Value);
-                    }
+                await CheckBoardModule();
+                
+                foreach (var jsCall in state.JsCalls)
+                    await BoardModule.InvokeVoidAsync(jsCall.Function, jsCall.Value);
 
-                    state.JsCalls.Clear();
-                }
+                state.JsCalls.Clear();
 
-                //StateHasChanged();
+                await TableRef.FocusAsync();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 throw;
             }
+        }
+
+        private async Task CheckBoardModule()
+        {
+            BoardModule ??= await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./scripts/board.js");
         }
 
         private async Task CellInteracted(int hPos, int wPos)

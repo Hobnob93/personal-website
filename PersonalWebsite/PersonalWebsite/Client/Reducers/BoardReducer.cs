@@ -24,11 +24,10 @@ namespace PersonalWebsite.Client.Reducers
             {
                 DoEdgeWrap = !state.DoEdgeWrap,
                 JsCalls = state.JsCalls.Append(new JsBoardCall
-                    {
-                        Function = "boardData.setEdgeWrap",
-                        Value = !state.DoEdgeWrap
-                    })
-                    .ToList()
+                {
+                    Function = "boardData.setEdgeWrap",
+                    Value = !state.DoEdgeWrap
+                }).ToList()
             };
         }
         
@@ -51,18 +50,31 @@ namespace PersonalWebsite.Client.Reducers
         }
 
         [ReducerMethod]
-        public static BoardState OnBoardUpdated(BoardState state, UpdateBoardAction action)
+        public static BoardState OnUpdateBoard(BoardState state, UpdateBoardAction action)
         {
             return state with
             {
                 Initializing = false,
                 Board = action.NewBoard,
                 JsCalls = state.JsCalls.Append(new JsBoardCall
-                    {
-                        Function = "boardData.setBoard",
-                        Value = action.NewBoard
-                    })
-                    .ToList()
+                {
+                    Function = "boardData.setBoard",
+                    Value = action.NewBoard
+                }).ToList()
+            };
+        }
+
+        [ReducerMethod]
+        public static BoardState OnBoardUpdated(BoardState state, BoardUpdatedAction action)
+        {
+            return state with
+            {
+                Initializing = false,
+                JsCalls = state.JsCalls.Append(new JsBoardCall
+                {
+                    Function = "boardData.setBoard",
+                    Value = state.Board
+                }).ToList()
             };
         }
 
@@ -73,11 +85,10 @@ namespace PersonalWebsite.Client.Reducers
             {
                 CurrentPen = action.NewPen,
                 JsCalls = state.JsCalls.Append(new JsBoardCall
-                    {
-                        Function = "boardData.setPenType",
-                        Value = action.NewPen
-                    })
-                    .ToList()
+                {
+                    Function = "boardData.setPenType",
+                    Value = action.NewPen
+                }).ToList()
             };
         }
     }

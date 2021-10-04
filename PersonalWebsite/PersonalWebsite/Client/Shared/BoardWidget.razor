@@ -1,22 +1,19 @@
 ﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @implements IDisposable
 
-@if (!Initializing)
-{
-    <table class="board" draggable="false">
-        @for (var h = 0; h < Board.Height; h++)
-        {
-            <tr class="board-row" draggable="false">
-                @for (var w = 0; w < Board.Width; w++)
-                {
-                    var cell = Board.Cells[Board.Width * h + w];
-                    var type = (int)cell.Type;
-                    <td id="cell-@h-@w" class="board-cell type-@type" data-h="@h" data-w="@w" data-t="@type" draggable="false"></td>
-                }
-            </tr>
-        }
-    </table>
-}
+<table @ref="TableRef" id="table-board" class="board" draggable="false" hidden>
+    @for (var h = 0; h < Board.Height; h++)
+    {
+        <tr class="board-row" draggable="false">
+            @for (var w = 0; w < Board.Width; w++)
+            {
+                var cell = Board.Cells[Board.Width * h + w];
+                var type = (int)cell.Type;
+                <td id="cell-@h-@w" class="board-cell type-@type" data-h="@h" data-w="@w" data-t="@type" draggable="false"></td>
+            }
+        </tr>
+    }
+</table>
 
 <div id="loading-body" class="loading-element">
     <div id="loading-container">

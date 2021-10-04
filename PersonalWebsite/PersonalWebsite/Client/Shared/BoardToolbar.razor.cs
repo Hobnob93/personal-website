@@ -1,6 +1,8 @@
 ﻿using System;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using MudBlazor;
 using PersonalWebsite.Client.Actions;
 using PersonalWebsite.Client.Store;
 using PersonalWebsite.Shared.Enums;
@@ -15,19 +17,19 @@ namespace PersonalWebsite.Client.Shared
         [Inject] public IBoardService BoardService { get; set; }
         [Inject] public IState<BoardState> BoardState { get; set; }
         [Inject] public IDispatcher Dispatcher { get; set; }
-        
-        public int PlaySpeedRaw { get; set; } = 2;
-        public PlaySpeed PlaySpeed => BoardState.Value.PlaySpeed;
-        public string PlaySpeedTooltip => $"Play Speed: {PlaySpeed.GetDescription()}";
-        
-        public int GridSizeRaw { get; set; } = 2;
-        public GridSize GridSize => BoardState.Value.GridSize;
-        public string GridSizeTooltip => $"Grid Size: {GridSize.GetDescription()}";
 
-        public bool IsPlaying => BoardState.Value.IsAutoPlaying;
-        public bool DoEdgeWrap => BoardState.Value.DoEdgeWrap;
-        public BoardCellType CurrentPen => BoardState.Value.CurrentPen;
-        public string SelectedCellHiddenState => IsPlaying ? "Hidden" : string.Empty;
+        private int PlaySpeedRaw { get; set; } = 2;
+        private PlaySpeed PlaySpeed => BoardState.Value.PlaySpeed;
+        private string PlaySpeedTooltip => $"Play Speed: {PlaySpeed.GetDescription()}";
+
+        private MudMenu GridMenu { get; set; }
+        private int GridSizeRaw { get; set; } = 2;
+        private GridSize GridSize => BoardState.Value.GridSize;
+        private string GridSizeTooltip => $"Grid Size: {GridSize.GetDescription()}";
+
+        private bool IsPlaying => BoardState.Value.IsAutoPlaying;
+        private bool DoEdgeWrap => BoardState.Value.DoEdgeWrap;
+        private BoardCellType CurrentPen => BoardState.Value.CurrentPen;
         
         
         protected override void OnInitialized()
@@ -36,22 +38,22 @@ namespace PersonalWebsite.Client.Shared
             OnPenChanged(BoardCellType.Goal);
         }
         
-        private void BoardStateChanged(object obj, BoardState state)
+        private async void BoardStateChanged(object obj, BoardState state)
         {
             StateHasChanged();
         }
-        
-        public void ClearBoard()
+
+        private void ClearBoard()
         {
             Dispatcher.Dispatch(new ClearBoardAction());
         }
-        
-        public void ToggleWrapEdge()
+
+        private void ToggleWrapEdge()
         {
             Dispatcher.Dispatch(new ToggleEdgeWrapAction());
         }
-        
-        public void OnSpeedChanged(int newValue)
+
+        private void OnSpeedChanged(int newValue)
         {
             PlaySpeedRaw = newValue;
             Dispatcher.Dispatch(new ChangePlaySpeedAction
@@ -60,7 +62,7 @@ namespace PersonalWebsite.Client.Shared
             });
         }
 
-        public void OnGridSizeChanged(int newValue)
+        private void OnGridSizeChanged(int newValue)
         {
             GridSizeRaw = newValue;
             Dispatcher.Dispatch(new ChangeGridSizeAction
@@ -69,7 +71,7 @@ namespace PersonalWebsite.Client.Shared
             });
         }
 
-        public void Play()
+        private void Play()
         {
             Dispatcher.Dispatch(new SetAutoPlayAction
             {
@@ -77,15 +79,15 @@ namespace PersonalWebsite.Client.Shared
             });
         }
 
-        public void Stop()
+        private void Stop()
         {
             Dispatcher.Dispatch(new SetAutoPlayAction
             {
                 IsAutoPlaying = false
             });
         }
-        
-        public void NextFrame(bool userClicked = false)
+
+        private void NextFrame(bool userClicked = false)
         {
             if (userClicked)
             {
@@ -102,7 +104,7 @@ namespace PersonalWebsite.Client.Shared
             }
         }
 
-        public void OnPenChanged(BoardCellType newPen)
+        private void OnPenChanged(BoardCellType newPen)
         {
             Dispatcher.Dispatch(new ChangePenAction
             {
