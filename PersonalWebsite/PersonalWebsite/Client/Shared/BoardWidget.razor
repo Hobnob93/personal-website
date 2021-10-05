@@ -1,7 +1,7 @@
 ﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @implements IDisposable
 
-<table @ref="TableRef" id="table-board" class="board" draggable="false" hidden>
+<table id="table-board" class="board" draggable="false" hidden>
     @for (var h = 0; h < Board.Height; h++)
     {
         <tr class="board-row" draggable="false">

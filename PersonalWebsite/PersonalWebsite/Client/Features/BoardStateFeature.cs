@@ -15,7 +15,6 @@ namespace PersonalWebsite.Client.Features
         {
             return new()
             {
-                Initializing = true,
                 Board = new Board
                 {
                     Cells = Array.Empty<BoardCell>()
