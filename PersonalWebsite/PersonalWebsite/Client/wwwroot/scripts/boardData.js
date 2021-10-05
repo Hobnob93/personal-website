@@ -3,13 +3,13 @@
 let boardData = {
     penType: cellTypes.GOAL,
     board: null,
-    eventsHandled: false,
+    initialised: false,
     redrawCheckInterval: null,
 
     setBoard: function(board) {
         this.setBoardLoader(true);
         this.board = board;
-        this.eventsHandled = false;
+        this.initialised = false;
         this.redrawCheckInterval = window.setInterval(function() {
             boardData.checkBoardIsDrawn();
         }, 500);
@@ -17,7 +17,7 @@ let boardData = {
 
     checkBoardIsDrawn: function() {
         let board = this.board;
-        if (board == null || this.eventsHandled === true) {
+        if (board == null || this.initialised === true) {
             return;
         }
 
@@ -58,7 +58,7 @@ let boardData = {
             }
         });
 
-        this.eventsHandled = true;
+        this.initialised = true;
         this.setBoardLoader(false);
     },
 
@@ -88,5 +88,17 @@ let boardData = {
             loader.addClass('done');
             table.removeAttr('hidden')
         }
+    },
+    
+    changeCellType: function(cellId, newType) {
+        let cell = this.board.cells[cellId];
+        cell.type = newType;
+
+        let cellElement = $(`#cell-${cell.h}-${cell.w}`);
+        let curType = cellElement.attr('data-t');
+
+        cellElement.removeClass(`type-${curType}`);
+        cellElement.addClass(`type-${cell.type}`);
+        cellElement.attr('data-t', cell.type);
     }
 };

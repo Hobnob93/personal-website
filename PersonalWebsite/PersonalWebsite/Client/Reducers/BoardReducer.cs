@@ -30,6 +30,19 @@ namespace PersonalWebsite.Client.Reducers
                 }).ToList()
             };
         }
+
+        [ReducerMethod(typeof(TickBoardAction))]
+        public static BoardState OnBoardShouldTick(BoardState state)
+        {
+            return state with
+            {
+                JsCalls = state.JsCalls.Append(new JsBoardCall
+                {
+                    Function = "nextFrame",
+                    Value = null
+                }).ToList()
+            };
+        }
         
         [ReducerMethod]
         public static BoardState OnGridSizeChanged(BoardState state, ChangeGridSizeAction action)
