@@ -25,7 +25,7 @@ namespace PersonalWebsite.Client.Reducers
                 DoEdgeWrap = !state.DoEdgeWrap,
                 JsCalls = state.JsCalls.Append(new JsBoardCall
                 {
-                    Function = "boardData.setEdgeWrap",
+                    Function = "setEdgeWrap",
                     Value = !state.DoEdgeWrap
                 }).ToList()
             };
@@ -54,11 +54,10 @@ namespace PersonalWebsite.Client.Reducers
         {
             return state with
             {
-                Initializing = false,
                 Board = action.NewBoard,
                 JsCalls = state.JsCalls.Append(new JsBoardCall
                 {
-                    Function = "boardData.setBoard",
+                    Function = "setBoard",
                     Value = action.NewBoard
                 }).ToList()
             };
@@ -69,10 +68,9 @@ namespace PersonalWebsite.Client.Reducers
         {
             return state with
             {
-                Initializing = false,
                 JsCalls = state.JsCalls.Append(new JsBoardCall
                 {
-                    Function = "boardData.setBoard",
+                    Function = "setBoard",
                     Value = state.Board
                 }).ToList()
             };
@@ -86,7 +84,7 @@ namespace PersonalWebsite.Client.Reducers
                 CurrentPen = action.NewPen,
                 JsCalls = state.JsCalls.Append(new JsBoardCall
                 {
-                    Function = "boardData.setPenType",
+                    Function = "setPenType",
                     Value = action.NewPen
                 }).ToList()
             };

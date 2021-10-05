@@ -20,16 +20,12 @@ namespace PersonalWebsite.Client.Shared
         [Inject] public IJSRuntime JsRuntime { get; set; }
         [Inject] public IState<BoardState> BoardState { get; set; }
         [Inject] public IDispatcher Dispatcher { get; set; }
-
+        
         [Parameter] public BoardType BoardType { get; set; }
         
-        public IJSObjectReference BoardModule { get; set; }
-        public ElementReference TableRef { get; set; }
-
-        public bool Initializing => BoardState.Value.Initializing;
-        public Board Board => BoardState.Value.Board;
-        public GridSize Size => BoardState.Value.GridSize;
-        public bool EdgeWrap => BoardState.Value.DoEdgeWrap;
+        private IJSObjectReference BoardModule { get; set; }
+        private IJSObjectReference ProcessorModule { get; set; }
+        private Board Board => BoardState.Value.Board;
 
 
         protected override async Task OnInitializedAsync()
@@ -48,8 +44,6 @@ namespace PersonalWebsite.Client.Shared
                     await BoardModule.InvokeVoidAsync(jsCall.Function, jsCall.Value);
 
                 state.JsCalls.Clear();
-
-                await TableRef.FocusAsync();
             }
             catch (Exception ex)
             {

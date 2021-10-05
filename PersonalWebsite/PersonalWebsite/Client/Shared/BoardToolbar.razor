@@ -7,7 +7,7 @@
     <MudTooltip Text="Help" Placement="Placement.Top">
         <MudIconButton Icon="@Icons.Material.Outlined.Help" Color="Color.Primary" />
     </MudTooltip>
-    <MudToolBarSpacer />
+    <MudSpacer />
     <MudTooltip Text="@PlaySpeedTooltip" Placement="Placement.Top">
         <MudMenu Icon="@Icons.Material.Filled.Timer" OffsetY="true">
             <MudSlider Min="0" Max="4" Value="@PlaySpeedRaw" ValueChanged="(int e) => OnSpeedChanged(e)"></MudSlider>
@@ -22,7 +22,7 @@
     <MudTooltip Text="Stop" Placement="Placement.Top">
         <MudIconButton Icon="@Icons.Material.Filled.Stop" Color="IsPlaying ? Color.Inherit : Color.Tertiary" @onclick="Stop" />
     </MudTooltip>
-    <MudToolBarSpacer />
+    <MudSpacer />
     <MudTooltip Text="@GridSizeTooltip" Placement="Placement.Top">
         <MudMenu @ref="GridMenu" Icon="@Icons.Material.Filled.GridView" OffsetY="true" Disabled="IsPlaying">
             <MudSlider Min="0" Max="6" Value="@GridSizeRaw" ValueChanged="(int e) => OnGridSizeChanged(e)"></MudSlider>
@@ -49,7 +49,7 @@
             </MudExpansionPanels>
         </MudMenu>
     </MudTooltip>
-    <MudToolBarSpacer />
+    <MudSpacer />
     <MudTooltip Text="Reset Grid" Placement="Placement.Top">
         <MudIconButton Icon="@Icons.Material.Outlined.GridOff" @onclick="ClearBoard" />
     </MudTooltip>
