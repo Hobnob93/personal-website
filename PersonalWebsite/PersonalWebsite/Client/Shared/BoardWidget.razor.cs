@@ -57,21 +57,6 @@ namespace PersonalWebsite.Client.Shared
             BoardModule ??= await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./scripts/board.js");
         }
 
-        private async Task CellInteracted(int hPos, int wPos)
-        {
-            await Task.Run(() =>
-            {
-                if (BoardState.Value.IsAutoPlaying)
-                    return;
-            
-                Dispatcher.Dispatch(new CellClickedAction
-                {
-                    H = hPos,
-                    W = wPos
-                });
-            });
-        }
-
         public new void Dispose()
         {
             base.Dispose();

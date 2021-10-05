@@ -68,29 +68,5 @@ namespace PersonalWebsite.Client.Effects
                 });
             });
         }
-
-        [EffectMethod(typeof(TickBoardAction))]
-        public Task OnTickBoard(IDispatcher dispatcher)
-        {
-            return Task.Run(() =>
-            {
-                dispatcher.Dispatch(new UpdateBoardAction
-                {
-                    NewBoard = boardService.Tick(boardState.Value.Board)
-                });
-            });
-        }
-
-        [EffectMethod]
-        public Task OnCellClicked(CellClickedAction action, IDispatcher dispatcher)
-        {
-            return Task.Run(() =>
-            {
-                dispatcher.Dispatch(new UpdateBoardAction
-                {
-                    NewBoard = boardService.CellInteracted(boardState.Value.Board, action.H, action.W, boardState.Value.CurrentPen)
-                });
-            });
-        }
     }
 }

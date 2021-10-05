@@ -37,11 +37,11 @@ namespace PersonalWebsite.Shared.Services
         {
             board = boardFactory.RecycleBoard(BoardType.Automata, board, clear, edgeWrap);
 
-            if (clear)
-            {
-                statistics.Clear();
-                DecorateCells(board);
-            }
+            if (!clear) 
+                return board;
+            
+            statistics.Clear();
+            DecorateCells(board);
 
             return board;
         }

@@ -1,15 +1,26 @@
 // noinspection JSUnusedGlobalSymbols
 
+let nullProcessor = {
+    tick: function() {
+        console.error("This is a null processor - something went wrong!");
+    }
+}
+
 let boardProcessor = {
     processor: null,
     isPlaying: false,
     playSpeed: 2,
     doEdgeWrap: false,
+    tickInterval: nullProcessor,
     
     loadFromBoard: function(board) {
         switch (board.type) {
+            case boardTypes.AUTOMATA:
+                this.processor = automataProcessor;
+                break;
             default:
-                this.processor = null;
+                this.processor = nullProcessor;
+                break;
         }
     },
     
@@ -30,6 +41,6 @@ let boardProcessor = {
     },
     
     tick: function() {
-        // Do next frame
+        this.processor.tick();
     }
 };
