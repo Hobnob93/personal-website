@@ -49,6 +49,7 @@ namespace PersonalWebsite.Client.Reducers
         {
             return state with
             {
+                Dirty = true,
                 GridSize = action.NewGridSize
             };
         }
@@ -67,6 +68,7 @@ namespace PersonalWebsite.Client.Reducers
         {
             return state with
             {
+                Dirty = true,
                 Board = action.NewBoard,
                 JsCalls = state.JsCalls.Append(new JsBoardCall
                 {
