@@ -1,10 +1,7 @@
 ﻿using PersonalWebsite.Shared.Enums;
 using PersonalWebsite.Shared.Interfaces;
 using PersonalWebsite.Shared.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using PersonalWebsite.Shared.Extensions;
 
 namespace PersonalWebsite.Shared.Services
@@ -28,7 +25,6 @@ namespace PersonalWebsite.Shared.Services
             
             var board = boardFactory.BuildBoard(BoardType.Automata, height, width, wrapEdge);
             statistics.Clear();
-            DecorateCells(board);
 
             return board;
         }
@@ -41,66 +37,8 @@ namespace PersonalWebsite.Shared.Services
                 return board;
             
             statistics.Clear();
-            DecorateCells(board);
 
             return board;
-        }
-
-        public Board CellInteracted(Board board, int hPos, int wPos, BoardCellType type)
-        {
-            var cell = board.Cells[board.Width * hPos + wPos];
-            ChangeCellType(cell, type);
-
-            return board;
-        }
-
-        public Board Tick(Board board)
-        {
-            AddStatistic(BoardStatistic.Generation, 1);
-
-            var oldCellStates = board.Cells
-                .Select(c => c.Type)
-                .ToArray();
-
-            for (var i = 0; i < oldCellStates.Length; i++)
-            {
-                var cell = board.Cells[i];
-
-                var numLiveNeighbours = 0;
-                for (var n = 0; n < cell.Neighbours.Length; n++)
-                {
-                    var neighbour = oldCellStates[cell.Neighbours[n]];
-                    if (neighbour == BoardCellType.Goal)
-                        numLiveNeighbours++;
-                }
-
-                var oldState = oldCellStates[i];
-                if (oldState == BoardCellType.Goal)
-                    ChangeCellType(cell, LiveNewCellState(numLiveNeighbours));
-                else
-                    ChangeCellType(cell, DeadCellNewState(numLiveNeighbours));
-            }
-
-            return board;
-        }
-
-        private BoardCellType LiveNewCellState(int numLiveNeighbours)
-        {
-            return numLiveNeighbours switch
-            {
-                2 => BoardCellType.Goal,
-                3 => BoardCellType.Goal,
-                _ => BoardCellType.Normal
-            };
-        }
-
-        private BoardCellType DeadCellNewState(int numLiveNeighbours)
-        {
-            return numLiveNeighbours switch
-            {
-                3 => BoardCellType.Goal,
-                _ => BoardCellType.Normal
-            };
         }
 
         public int GetStatistic(BoardStatistic stat)
@@ -117,36 +55,6 @@ namespace PersonalWebsite.Shared.Services
         private void SetStatistic(BoardStatistic stat, int val)
         {
             statistics[stat] = val;
-        }
-
-        private void DecorateCells(Board board)
-        {
-            //var cells = Board.Cells;
-            //var rand = new Random(DateTime.Now.Millisecond);
-            //var randCount = rand.Next(30, 50);
-            //
-            //for (int i = 0; i < randCount; i++)
-            //{
-            //    var randomCell = cells[rand.Next(0, cells.Length)];
-            //    ChangeCellType(randomCell, BoardCellType.Goal);
-            //}
-        }
-
-        private void ChangeCellType(BoardCell cell, BoardCellType toType)
-        {
-            var curType = cell.Type;
-            if (curType == BoardCellType.Normal && toType == BoardCellType.Goal)
-            {
-                AddStatistic(BoardStatistic.Living, 1);
-                AddStatistic(BoardStatistic.TotalLived, 1);
-            }
-            else if (curType == BoardCellType.Goal && toType == BoardCellType.Normal)
-            {
-                AddStatistic(BoardStatistic.Living, -1);
-                AddStatistic(BoardStatistic.TotalDied, 1);
-            }
-
-            cell.Type = toType;
         }
     }
 }

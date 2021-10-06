@@ -6,6 +6,7 @@ namespace PersonalWebsite.Client.Store
 {
     public record BoardState
     {
+        public bool Dirty { get; set; }
         public Board Board { get; init; }
         public GridSize GridSize { get; init; }
         public bool DoEdgeWrap { get; init; }

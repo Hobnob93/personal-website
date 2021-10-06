@@ -44,6 +44,12 @@ namespace PersonalWebsite.Client.Shared
                     await BoardModule.InvokeVoidAsync(jsCall.Function, jsCall.Value);
 
                 state.JsCalls.Clear();
+
+                if (!state.Dirty) 
+                    return;
+                
+                state.Dirty = false;
+                StateHasChanged();
             }
             catch (Exception ex)
             {
@@ -57,9 +63,8 @@ namespace PersonalWebsite.Client.Shared
             BoardModule ??= await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./scripts/board.js");
         }
 
-        public new void Dispose()
+        public void Dispose()
         {
-            base.Dispose();
             BoardState.StateChanged -= BoardStateChanged;
         }
     }
