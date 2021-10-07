@@ -1,4 +1,4 @@
-﻿// noinspection JSUnusedGlobalSymbols
+﻿// noinspection JSUnusedGlobalSymbols,JSUnresolvedVariable
 
 let boardData = {
     penType: cellTypes.GOAL,
