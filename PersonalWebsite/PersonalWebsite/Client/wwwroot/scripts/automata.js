@@ -1,4 +1,6 @@
-﻿let automataProcessor = {
+﻿// noinspection JSUnresolvedVariable
+
+let automataProcessor = {
     tick: function() {
         let board = boardData.board;        
         let oldCells = $.map(board.cells, function(cell) {
@@ -34,7 +36,7 @@
                 return cellTypes.GOAL;
             default:
                 return cellTypes.NORMAL;
-        };
+        }
     },
 
     deadCellNewState: function(numLiveNeighbours) {
@@ -43,7 +45,7 @@
                 return cellTypes.GOAL;
             default:
                 return cellTypes.NORMAL;
-        };
+        }
     },
     
     changeCellType: function(cellId, cell, toType) {
