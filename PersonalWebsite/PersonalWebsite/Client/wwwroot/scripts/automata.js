@@ -6,8 +6,12 @@
         });
         
         for (let oc = 0; oc < oldCells.length; oc++) {
+            let oldState = oldCells[oc];
+            if (oldState === cellTypes.EMPTY) {
+                continue;
+            }
+            
             let cell = board.cells[oc];
-
             let numLiveNeighbours = 0;
             for (let n = 0; n < cell.neighbours.length; n++)
             {
@@ -15,8 +19,7 @@
                 if (neighbour === cellTypes.GOAL)
                     numLiveNeighbours++;
             }
-
-            let oldState = oldCells[oc];
+            
             if (oldState === cellTypes.GOAL)
                 this.changeCellType(oc, cell, this.liveCellNewState(numLiveNeighbours));
             else
