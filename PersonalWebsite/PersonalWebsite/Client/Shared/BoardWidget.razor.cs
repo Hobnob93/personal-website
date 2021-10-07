@@ -24,7 +24,6 @@ namespace PersonalWebsite.Client.Shared
         [Parameter] public BoardType BoardType { get; set; }
         
         private IJSObjectReference BoardModule { get; set; }
-        private IJSObjectReference ProcessorModule { get; set; }
         private Board Board => BoardState.Value.Board;
 
 
