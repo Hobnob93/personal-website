@@ -11,9 +11,16 @@ namespace PersonalWebsite.Client.Reducers
         [ReducerMethod]
         public static BoardState OnToggleAutoPlay(BoardState state, SetAutoPlayAction action)
         {
+            var function = action.IsAutoPlaying ? "play" : "stop";
+        
             return state with
             {
-                IsAutoPlaying = action.IsAutoPlaying
+                IsAutoPlaying = action.IsAutoPlaying,
+                JsCalls = state.JsCalls.Append(new JsBoardCall
+                {
+                    Function = function,
+                    Value = null
+                }).ToList()
             };
         }
         

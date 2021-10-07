@@ -7,11 +7,11 @@ let nullProcessor = {
 }
 
 let boardProcessor = {
-    processor: null,
+    processor: nullProcessor,
     isPlaying: false,
-    playSpeed: 2,
+    playSpeed: 0,
     doEdgeWrap: false,
-    tickInterval: nullProcessor,
+    tickInterval: null,
     
     loadFromBoard: function(board) {
         switch (board.type) {
@@ -34,10 +34,16 @@ let boardProcessor = {
     
     stop: function() {
         this.isPlaying = false;
+        clearInterval(this.tickInterval);
     },
     
     start: function() {
         this.isPlaying = true;
+        this.tickInterval = window.setInterval(function() {
+            if (boardProcessor.isPlaying) {
+                boardProcessor.tick();
+            }
+        }, playbackSpeeds[this.playSpeed]);
     },
     
     tick: function() {
