@@ -32,12 +32,12 @@
         <MudIconButton Icon="@Icons.Material.Filled.WrapText" Color="DoEdgeWrap ? Color.Secondary : Color.Tertiary" @onclick="ToggleWrapEdge" Disabled="IsPlaying" />
     </MudTooltip>
     <MudTooltip Text="Draw Type" Placement="Placement.Top">
-        <MudMenu Icon="@Icons.Material.Filled.Colorize" OffsetY="true" Dense="true" Disabled="IsPlaying">
+        <MudMenu Icon="@Icons.Material.Filled.Colorize" OffsetY="true" Dense="true">
             <MudMenuItem OnClick="() => OnPenChanged(BoardCellType.Goal)">Living Cell</MudMenuItem>
             <MudMenuItem OnClick="() => OnPenChanged(BoardCellType.Normal)">Dead Cell</MudMenuItem>
             <MudMenuItem OnClick="() => OnPenChanged(BoardCellType.Empty)">Wall</MudMenuItem>
         </MudMenu>
-        <div class="selected-cell type-@((int)CurrentPen)" hidden="@IsPlaying"></div>
+        <div class="selected-cell type-@((int)CurrentPen)"></div>
     </MudTooltip>
     <MudTooltip Text="Pick Preset" Placement="Placement.Top">
         <MudMenu Icon="@Icons.Material.Filled.AssignmentReturned" OffsetY="true" Dense="true" Disabled="IsPlaying">

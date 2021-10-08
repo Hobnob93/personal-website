@@ -9,7 +9,7 @@ let nullProcessor = {
 let boardProcessor = {
     processor: nullProcessor,
     isPlaying: false,
-    playSpeed: 0,
+    playSpeed: 2,
     doEdgeWrap: false,
     tickInterval: null,
     
@@ -29,7 +29,11 @@ let boardProcessor = {
     },
     
     setPlaySpeed: function(playSpeedType) {
-      this.playSpeed = playSpeedType;  
+        this.playSpeed = playSpeedType;
+        if (this.isPlaying) {
+            this.stop();
+            this.start();
+        }
     },
     
     stop: function() {

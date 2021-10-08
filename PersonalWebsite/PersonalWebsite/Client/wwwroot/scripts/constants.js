@@ -19,4 +19,4 @@ const cellTypes = {
     PATH: 8                // Cell is used as part of a path when pathfinding
 };
 
-const playbackSpeeds = [0, 200, 500, 750, 1000];
+const playbackSpeeds = [1000, 500, 300, 150, 0];

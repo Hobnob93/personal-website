@@ -66,7 +66,12 @@ namespace PersonalWebsite.Client.Reducers
         {
             return state with
             {
-                PlaySpeed = action.NewPlaySpeed
+                PlaySpeed = action.NewPlaySpeed,
+                JsCalls = state.JsCalls.Append(new JsBoardCall
+                {
+                    Function = "setPlaySpeed",
+                    Value = action.NewPlaySpeed
+                }).ToList()
             };
         }
 
