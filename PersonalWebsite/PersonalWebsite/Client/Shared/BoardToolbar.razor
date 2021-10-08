@@ -1,4 +1,5 @@
 ﻿@using PersonalWebsite.Shared.Enums
+@using PersonalWebsite.Client.Actions
 
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @implements IDisposable
@@ -40,13 +41,19 @@
         <div class="selected-cell type-@((int)CurrentPen)"></div>
     </MudTooltip>
     <MudTooltip Text="Pick Preset" Placement="Placement.Top">
-        <MudMenu Icon="@Icons.Material.Filled.AssignmentReturned" OffsetY="true" Dense="true" Disabled="IsPlaying">
+        <MudMenu Icon="@Icons.Material.Filled.AssignmentReturned" OffsetY="true" Dense="true" Disabled="IsPlaying" >
             <MudExpansionPanels>
-                <MudExpansionPanel Text="Still Lifes">Content</MudExpansionPanel>
-                <MudExpansionPanel Text="Oscillators">Content</MudExpansionPanel>
-                <MudExpansionPanel Text="Spaceships">Content</MudExpansionPanel>
-                <MudExpansionPanel Text="Infinite Growth">Content</MudExpansionPanel>
+                <MudExpansionPanel Dense="true" Text="Still Lifes">Content</MudExpansionPanel>
+                <MudExpansionPanel Dense="true" Text="Oscillators">Content</MudExpansionPanel>
+                <MudExpansionPanel Dense="true" Text="Spaceships">Content</MudExpansionPanel>
+                <MudExpansionPanel Dense="true" Text="Infinite Growth">Content</MudExpansionPanel>
             </MudExpansionPanels>
+        </MudMenu>
+    </MudTooltip>
+    <MudTooltip Text="Save/Load" Placement="Placement.Top">
+        <MudMenu Icon="@Icons.Material.Filled.Save" OffsetY="true" Dense="true" Disabled="IsPlaying" >
+            <MudMenuItem OnClick="SaveBoard">Save Current Pattern</MudMenuItem>
+            <MudMenuItem OnClick="LoadBoard">Load Last Saved Pattern</MudMenuItem>
         </MudMenu>
     </MudTooltip>
     <MudSpacer />

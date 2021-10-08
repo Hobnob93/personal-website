@@ -111,6 +111,16 @@ namespace PersonalWebsite.Client.Shared
                 NewPen = newPen
             });
         }
+
+        private void SaveBoard()
+        {
+            Dispatcher.Dispatch(new SaveBoardAction());
+        }
+
+        private void LoadBoard()
+        {
+            Dispatcher.Dispatch(new LoadBoardAction());
+        }
         
         public new void Dispose()
         {

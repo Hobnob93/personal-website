@@ -116,5 +116,31 @@ namespace PersonalWebsite.Client.Reducers
                 }).ToList()
             };
         }
+
+        [ReducerMethod(typeof(SaveBoardAction))]
+        public static BoardState OnSaveBoard(BoardState state)
+        {
+            return state with
+            {
+                JsCalls = state.JsCalls.Append(new JsBoardCall
+                {
+                    Function = "save",
+                    Value = null
+                }).ToList()
+            };
+        }
+        
+        [ReducerMethod(typeof(LoadBoardAction))]
+        public static BoardState OnLoadBoard(BoardState state)
+        {
+            return state with
+            {
+                JsCalls = state.JsCalls.Append(new JsBoardCall
+                {
+                    Function = "load",
+                    Value = null
+                }).ToList()
+            };
+        }
     }
 }

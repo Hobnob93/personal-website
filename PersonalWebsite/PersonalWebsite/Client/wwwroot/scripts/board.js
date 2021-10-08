@@ -28,3 +28,11 @@ export function play() {
 export function nextFrame() {
     boardProcessor.tick();
 }
+
+export function save() {
+    boardData.save();
+}
+
+export function load() {
+    boardData.load();
+}
