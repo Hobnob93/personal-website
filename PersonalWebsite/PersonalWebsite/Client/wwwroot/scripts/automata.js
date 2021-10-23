@@ -14,23 +14,23 @@ let automataProcessor = {
             }
             
             let cell = board.cells[oc];
-            let numLiveNeighbours = 0;
-            for (let n = 0; n < cell.neighbours.length; n++)
+            let numLiveNeighbors = 0;
+            for (let n = 0; n < cell.neighbors.length; n++)
             {
-                let neighbour = oldCells[cell.neighbours[n]];
-                if (neighbour === cellTypes.GOAL)
-                    numLiveNeighbours++;
+                let neighbor = oldCells[cell.neighbors[n]];
+                if (neighbor === cellTypes.GOAL)
+                    numLiveNeighbors++;
             }
             
             if (oldState === cellTypes.GOAL)
-                this.changeCellType(oc, cell, this.liveCellNewState(numLiveNeighbours));
+                this.changeCellType(oc, cell, this.liveCellNewState(numLiveNeighbors));
             else
-                this.changeCellType(oc, cell, this.deadCellNewState(numLiveNeighbours));
+                this.changeCellType(oc, cell, this.deadCellNewState(numLiveNeighbors));
         }
     },
     
-    liveCellNewState: function(numLiveNeighbours) {
-        switch(numLiveNeighbours) {
+    liveCellNewState: function(numLiveNeighbors) {
+        switch(numLiveNeighbors) {
             case 2:
             case 3:
                 return cellTypes.GOAL;
@@ -39,8 +39,8 @@ let automataProcessor = {
         }
     },
 
-    deadCellNewState: function(numLiveNeighbours) {
-        switch(numLiveNeighbours) {
+    deadCellNewState: function(numLiveNeighbors) {
+        switch(numLiveNeighbors) {
             case 3:
                 return cellTypes.GOAL;
             default:

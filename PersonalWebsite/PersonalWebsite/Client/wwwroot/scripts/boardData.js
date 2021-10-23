@@ -2,6 +2,7 @@
 
 let boardData = {
     penType: cellTypes.GOAL,
+    neighborhoodType: neighborhoodTypes.MOORE,
     board: null,
     savedBoard: null,
     initialised: false,
@@ -12,6 +13,7 @@ let boardData = {
         
         // Need to do a deep clone of the board (please see save method below)
         this.board = JSON.parse(JSON.stringify(board));
+        neighborhood.findNeighbors(this.board.cells, this.board.width, this.neighborhoodType, this.board.doEdgeWrap);
         
         this.initialised = false;
         this.redrawCheckInterval = window.setInterval(function() {

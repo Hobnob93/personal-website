@@ -45,74 +45,21 @@ namespace PersonalWebsite.Shared.Services
 
         private void InitialiseCells(BoardCell[] cells, int height, int width, bool clear, bool wrapEdge)
         {
-            for (int h = 0; h < height; h++)
+            for (var h = 0; h < height; h++)
             {
-                for (int w = 0; w < width; w++)
+                for (var w = 0; w < width; w++)
                 {
                     var i = width * h + w;
                     var cell = cells[i];
 
                     cell.H = h;
                     cell.W = w;
-                    cell.Neighbours = Enum.GetValues<NeighbourDirection>()
-                        .Select(nd => FindNeighbourIndex(nd, cells, i, width, wrapEdge))
-                        .Where(i => i != -1)
-                        .ToArray();
+                    cell.Neighbors = Array.Empty<int>();
 
                     if (clear)
                         cell.Type = BoardCellType.Normal;
                 }
             }
-        }
-
-        private int FindNeighbourIndex(NeighbourDirection dir, BoardCell[] cells, int curIndex, int width, bool wrapEdge)
-        {
-            var neighbourIndex = dir switch
-            {
-                NeighbourDirection.North => curIndex - width,
-                NeighbourDirection.NorthEast => (curIndex - width) + 1,
-                NeighbourDirection.East => curIndex + 1,
-                NeighbourDirection.SouthEast => (curIndex + width) + 1,
-                NeighbourDirection.South => curIndex + width,
-                NeighbourDirection.SouthWest => (curIndex + width) - 1,
-                NeighbourDirection.West => curIndex - 1,
-                NeighbourDirection.NorthWest => (curIndex - width) - 1,
-                _ => -1
-            };
-
-            var cellIsFarLeft = curIndex % width == 0;
-            var cellIsFarRight = curIndex % width == (width - 1);
-
-            if (wrapEdge)
-            {
-                if (dir.IsGenerallyNorth() && neighbourIndex < 0)
-                    neighbourIndex += cells.Length;
-
-                if (dir.IsGenerallySouth() && neighbourIndex >= cells.Length)
-                    neighbourIndex -= cells.Length;
-
-                if (dir.IsGenerallyWest() && cellIsFarLeft)
-                    neighbourIndex += width;           // cell is on left side, neighbour needs to be same row but on far right
-
-                if (dir.IsGenerallyEast() && cellIsFarRight)
-                    neighbourIndex -= width;           // cell is on right side, neighbour needs to be same row but on far left
-
-                if (neighbourIndex < 0 || neighbourIndex >= cells.Length)
-                    return -1;                        // neighbour index is out of range
-            }
-            else
-            {
-                if (neighbourIndex < 0 || neighbourIndex >= cells.Length)
-                    return -1;                        // neighbour index is out of range
-
-                if (dir.IsGenerallyWest() && cellIsFarLeft)
-                    return -1;                        // cell is on left side, but neighbour index is on previous row on far right side
-
-                if (dir.IsGenerallyEast() && cellIsFarRight)
-                    return -1;                        // cell is on right side, but neighbour index is on next row on far left side
-            }
-
-            return neighbourIndex;
         }
     }
 }
