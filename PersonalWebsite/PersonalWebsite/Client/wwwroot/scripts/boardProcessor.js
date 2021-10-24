@@ -25,6 +25,9 @@ let boardProcessor = {
     },
     
     setEdgeWrap: function(doEdgeWrap) {
+        if (this.isPlaying)
+            this.stop();
+        
         this.doEdgeWrap = doEdgeWrap;
     },
     

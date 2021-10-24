@@ -11,6 +11,7 @@ export function setPenType(penType) {
 
 export function setEdgeWrap(doEdgeWrap) {
     boardProcessor.setEdgeWrap(doEdgeWrap);
+    boardData.updateNeighbors();
 }
 
 export function setPlaySpeed(playSpeed) {

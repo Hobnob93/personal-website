@@ -3,6 +3,7 @@ using PersonalWebsite.Shared.Extensions;
 using PersonalWebsite.Shared.Interfaces;
 using PersonalWebsite.Shared.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PersonalWebsite.Shared.Services
@@ -15,35 +16,35 @@ namespace PersonalWebsite.Shared.Services
             {
                 Type = type,
                 Height = height,
-                Width = width
+                Width = width,
+                Cells = CreateCells(height, width)
             };
-
-            board.Cells = CreateCells(board, height, width, wrapEdge);
 
             return board;
         }
 
         public Board RecycleBoard(BoardType type, Board board, bool clear, bool wrapEdge)
         {
-            if (board == null) throw new ArgumentNullException(nameof(board));
+            if (board == null)
+                throw new ArgumentNullException(nameof(board));
 
-            InitialiseCells(board.Cells, board.Height, board.Width, clear, wrapEdge);
+            InitialiseCells(board.Cells, board.Height, board.Width, clear);
 
             return board;
         }
 
-        private BoardCell[] CreateCells(Board board, int height, int width, bool wrapEdge)
+        private BoardCell[] CreateCells(int height, int width)
         {
             var cells = Enumerable.Range(1, height * width)
                 .Select(i => new BoardCell())
                 .ToArray();
 
-            InitialiseCells(cells, height, width, false, wrapEdge);
+            InitialiseCells(cells, height, width, false);
 
             return cells;
         }
 
-        private void InitialiseCells(BoardCell[] cells, int height, int width, bool clear, bool wrapEdge)
+        private void InitialiseCells(IReadOnlyList<BoardCell> cells, int height, int width, bool clear)
         {
             for (var h = 0; h < height; h++)
             {

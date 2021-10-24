@@ -3,6 +3,7 @@ using Fluxor;
 using PersonalWebsite.Client.Actions;
 using PersonalWebsite.Client.Store;
 using PersonalWebsite.Shared.Models;
+// ReSharper disable UnusedType.Global UnusedMember.Global
 
 namespace PersonalWebsite.Client.Reducers
 {

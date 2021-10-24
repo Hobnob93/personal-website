@@ -11,7 +11,7 @@
             case neighborhoodTypes.NEUMANN:
                 this.addNeighborsToCells(cells, boardWidth, doEdgeWrap, neumannNeighbors)
                 break;
-        };
+        }
     },
     
     addNeighborsToCells: function(cells, boardWidth, doEdgeWrap, directions) {

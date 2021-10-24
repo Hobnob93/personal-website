@@ -56,17 +56,5 @@ namespace PersonalWebsite.Client.Effects
                 });
             });
         }
-        
-        [EffectMethod(typeof(ToggleEdgeWrapAction))]
-        public Task OnToggleEdgeWrap(IDispatcher dispatcher)
-        {
-            return Task.Run(() =>
-            {
-                dispatcher.Dispatch(new UpdateBoardAction
-                {
-                    NewBoard = boardService.Reset(boardState.Value.Board, false, boardState.Value.DoEdgeWrap)
-                });
-            });
-        }
     }
 }
