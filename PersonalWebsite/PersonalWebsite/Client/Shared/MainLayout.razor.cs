@@ -4,7 +4,7 @@ namespace PersonalWebsite.Client.Shared
 {
     public partial class MainLayout
     {
-        private MudTheme darkTheme;
+        private readonly MudTheme darkTheme;
         private bool drawerOpen = true;
 
 

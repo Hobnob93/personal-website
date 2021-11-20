@@ -157,3 +157,7 @@
     padding-left: 20px;
     padding-right: 20px;
 }
+
+div.mud-nav-item a.mud-nav-link.active {
+    background-color: var(--mud-palette-background);
+}
